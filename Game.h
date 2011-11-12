@@ -5,6 +5,7 @@
 #include <SFML/System.hpp>
 #include <vector>
 #include "ImagePool.h"
+#include "Player.h"
 #include "Entity.h"
 #include "Grid.h"
 
@@ -19,8 +20,8 @@ public:
 
 	ImagePool imagePool;
 
-	Entity player1;
-	Entity player2;
+	Player player1;
+	Player player2;
 
 	Grid grid;
 

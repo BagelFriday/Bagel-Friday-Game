@@ -18,17 +18,11 @@ public:
 
 	Entity();
 
-	// Just load img
-	void Initialize(Game *game, std::string filename);
+	virtual void Initialize(Game *game, std::string filename);
 
-	// For players
-	void PlayerInitialize(Game *game, std::string filename, sf::Font& font, float fontSize);
-
-	void Update(Game *game, float deltaTime);
+	virtual void Update(Game *game, float deltaTime);
 
 	sf::Rect<float> GetRect();
-
-	void UpdatePointDisplay();
 };
 
 #endif // ENTITY
