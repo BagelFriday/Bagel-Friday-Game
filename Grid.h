@@ -2,7 +2,7 @@
 #define GRID
 
 #include <SFML/Graphics.hpp>
-#include "Entity.h"
+#include "Resource.h"
 
 class Game;
 
@@ -17,7 +17,7 @@ public:
 	int gridWidth;
 	int gridHeight;
 
-	Entity* grid[MAX_GRID_WIDTH][MAX_GRID_HEIGHT];
+	Resource* grid[MAX_GRID_WIDTH][MAX_GRID_HEIGHT];
 
 	Grid();
 

@@ -5,9 +5,8 @@
 #include <SFML/System.hpp>
 #include <vector>
 #include "ImagePool.h"
+#include "Entity.h"
 #include "Grid.h"
-
-class Entity;
 
 class Game
 {
@@ -17,7 +16,8 @@ public:
 
 	ImagePool imagePool;
 
-	std::vector<Entity*> entities;
+	Entity player1;
+	Entity player2;
 
 	Grid grid;
 
@@ -28,6 +28,8 @@ public:
 	void Run();
 
 	void Update(float deltaTime);
+
+	void UpdateInput(float deltaTime);
 
 	void Display();
 };
