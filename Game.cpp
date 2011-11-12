@@ -23,6 +23,7 @@ void Game::Initialize()
 	const float FONT_INSET = 100.0f;
 	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f);
 	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f);
+	cannon.Initialize( this );
 
 	grid.SetSize(4, 4);
 	grid.Populate(this);

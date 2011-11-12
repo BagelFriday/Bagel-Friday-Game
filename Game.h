@@ -6,6 +6,7 @@
 #include <vector>
 #include "ImagePool.h"
 #include "Player.h"
+#include "Cannon.h"
 #include "Entity.h"
 #include "Grid.h"
 
