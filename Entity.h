@@ -7,7 +7,8 @@ class Entity : public sf::Sprite
 {
 private:
 public:
-	sf::Vector2f velocity;
+	sf::Vector3f velocity;
+	sf::Vector3f position;
 
 	Entity();
 };
