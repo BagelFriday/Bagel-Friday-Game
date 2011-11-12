@@ -77,6 +77,11 @@ void Game::Update(float deltaTime)
 
 	player1.Update(this, deltaTime);
 	player2.Update(this, deltaTime);
+
+	// Points display in the appropriate corner
+	static const float TEXT_INSET = 10.0f;
+	player1.pointDisplay.SetPosition(sf::Vector2f(0.0f + TEXT_INSET, screenHeight - player1.pointDisplay.GetRect().GetHeight() - TEXT_INSET));
+	player2.pointDisplay.SetPosition(sf::Vector2f(screenWidth - player1.pointDisplay.GetRect().GetWidth() - TEXT_INSET, screenHeight - player1.pointDisplay.GetRect().GetHeight() - TEXT_INSET));
 }
 
 void Game::UpdateInput(float deltaTime)
