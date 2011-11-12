@@ -6,6 +6,8 @@ Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::
 	sf::VideoMode vmode = sf::VideoMode(screenWidth, screenHeight, bpp);
 
 	window.Create(vmode, title, mode);
+
+	sf::Randomizer::SetSeed(time(NULL));
 }
 
 void Game::Initialize()

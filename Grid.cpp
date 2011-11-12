@@ -25,7 +25,26 @@ void Grid::Populate(Game *game)
 		for (int j = 0; j < gridHeight; j++)
 		{
 			grid[i][j] = new Entity();
-			grid[i][j]->SetImage(*(game->imagePool.loadWithPool("Art/meat.png")));
+			
+			// Make a random choice of resource
+			const int NUM_RESOURCES = 3;
+			int randomResource = sf::Randomizer::Random(0, NUM_RESOURCES - 1);
+			std::string resourceToLoad;
+
+			switch(randomResource)
+			{
+			case 0:
+				resourceToLoad = "Art/meat.png";
+				break;
+			case 1:
+				resourceToLoad = "Art/sticks.png";
+				break;
+			case 2:
+				resourceToLoad = "Art/gold.png";
+				break;
+			}
+			grid[i][j]->SetImage(*(game->imagePool.loadWithPool(resourceToLoad)));
+
 			grid[i][j]->SetPosition(sf::Vector2f((float)j * grid[i][j]->GetImage()->GetWidth(), (float)i * grid[i][j]->GetImage()->GetHeight()));
 		}
 	}
