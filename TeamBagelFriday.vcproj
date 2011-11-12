@@ -191,6 +191,10 @@
 				RelativePath=".\main.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Resource.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -211,6 +215,10 @@
 			</File>
 			<File
 				RelativePath=".\ImagePool.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Resource.h"
 				>
 			</File>
 		</Filter>
