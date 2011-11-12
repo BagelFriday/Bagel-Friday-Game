@@ -11,12 +11,15 @@ Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::
 	sf::Randomizer::SetSeed(static_cast<unsigned int>(time(NULL)));
 
 	resourceFont.LoadFromFile("arial.ttf", 50);
+
+	pointFont.LoadFromFile("arial.ttf", 80);
 }
 
 void Game::Initialize()
 {
-	player1.SetImage(*(imagePool.loadWithPool("Art/player1.png")));
-	player2.SetImage(*(imagePool.loadWithPool("Art/player2.png")));
+	const float FONT_INSET = 100.0f;
+	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f, sf::Vector2f(FONT_INSET, 768.0f - FONT_INSET));
+	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f, sf::Vector2f(1024 - FONT_INSET, 768.0f - FONT_INSET));
 
 	grid.SetSize(4, 4);
 	grid.Populate(this);
@@ -101,6 +104,8 @@ void Game::Display()
 
 	window.Draw(player1);
 	window.Draw(player2);
+	window.Draw(player1.pointDisplay);
+	window.Draw(player2.pointDisplay);
 }
 
 bool Game::IsColliding(sf::Rect<float>& rect1, sf::Rect<float>& rect2)

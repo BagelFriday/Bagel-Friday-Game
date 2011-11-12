@@ -1,11 +1,17 @@
 #include "Resource.h"
 #include "Game.h"
 
-Resource::Resource() : isAlive(true)
+Resource::Resource()
+:
+isAlive(true),
+pointValue(0)
 {
 }
 
-Resource::Resource(std::string _type, std::string _key, float _probability) : isAlive(true)
+Resource::Resource(std::string _type, std::string _key, float _probability)
+:
+isAlive(true),
+pointValue(0)
 {
 	type = _type;
 	probability = _probability;

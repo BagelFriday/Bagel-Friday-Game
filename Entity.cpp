@@ -1,9 +1,23 @@
 #include "Entity.h"
 #include "Game.h"
+#include "ImagePool.h"
+#include <sstream>
 
 Entity::Entity()
+:
+myPoints(0)
 {
 	speed = sf::Vector2f( 2.0f, 2.0f );
+}
+
+void Entity::Initialize(Game *game, std::string filename, sf::Font& font, float fontSize, sf::Vector2f pointPos)
+{
+	SetImage(*(game->imagePool.loadWithPool(filename)));
+
+	pointDisplay.SetFont(font);
+	pointDisplay.SetText("0");
+	pointDisplay.SetSize(fontSize);
+	pointDisplay.SetPosition(pointPos);
 }
 
 void Entity::Update(Game *game, float deltaTime)
@@ -21,6 +35,8 @@ void Entity::Update(Game *game, float deltaTime)
 				game->grid.grid[i][j]->Die();
 
 				// Grab points
+				myPoints += game->grid.grid[i][j]->pointValue;
+				UpdatePointDisplay();
 			}
 		}
 	}
@@ -34,4 +50,11 @@ sf::Rect<float> Entity::GetRect()
 	w = GetSubRect().GetWidth() * GetScale().x;
 	h = GetSubRect().GetHeight() * GetScale().y;
 	return sf::Rect<float>(x, y, x + w, y + h);
+}
+
+void Entity::UpdatePointDisplay()
+{
+	std::stringstream ss;
+	ss << myPoints;
+	pointDisplay.SetText(ss.str());
 }

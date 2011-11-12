@@ -44,18 +44,22 @@ void Grid::Populate(Game *game)
 			const int NUM_RESOURCES = 3;
 			int randomResource = sf::Randomizer::Random(0, NUM_RESOURCES - 1);
 			std::string resourceType;
+			int pointValue;
 
 			// Random resource
 			switch(randomResource)
 			{
 			case 0:
 				resourceType = "meat";
+				pointValue = 2;
 				break;
 			case 1:
 				resourceType = "sticks";
+				pointValue = 1;
 				break;
 			case 2:
 				resourceType = "gold";
+				pointValue = 3;
 				break;
 			}
 
@@ -70,6 +74,7 @@ void Grid::Populate(Game *game)
 			grid[i][j]->type = resourceType;
 			grid[i][j]->key = key;
 			grid[i][j]->SetTextFromKey(game->resourceFont);
+			grid[i][j]->pointValue = pointValue;
 
 			grid[i][j]->SetPosition(sf::Vector2f((float)j * grid[i][j]->GetImage()->GetWidth(), (float)i * grid[i][j]->GetImage()->GetHeight()));
 			grid[i][j]->AlignText();

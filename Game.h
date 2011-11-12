@@ -21,7 +21,11 @@ public:
 
 	Grid grid;
 
+	// Drawn on resources
 	sf::Font resourceFont;
+
+	// Player point totals
+	sf::Font pointFont;
 
 	Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::string title);
 

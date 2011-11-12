@@ -14,6 +14,8 @@ public:
 
 	int key;
 
+	int pointValue;
+
 	float probability;
 
 	// Font used for all resources
