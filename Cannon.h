@@ -9,7 +9,12 @@ class Cannon
 {
 	float rotation;
 	std::vector<Entity> Shots;
-	Entity* sprite;
+	Entity sprite;
+
+	Cannon();
+	void update_shots();
+
+	void FireShot( sf::Vector2f hit_pos );
 };
 
 #endif

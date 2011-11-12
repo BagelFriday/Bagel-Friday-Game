@@ -22,6 +22,7 @@ public:
 
 	Player player1;
 	Player player2;
+	Cannon cannon;
 
 	Grid grid;
 
