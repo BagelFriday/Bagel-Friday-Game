@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Entity.h"
 
+
 Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::string title)
 {
 	sf::VideoMode vmode = sf::VideoMode(screenWidth, screenHeight, bpp);
@@ -10,10 +11,6 @@ Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::
 
 void Game::Initialize()
 {
-	// Player 1
-	entities.push_back(new Entity());
-	entities[entities.size() - 1]->SetImage(*(imagePool.loadWithPool("Art/player1.png")));
-
 	// Populate the grid
 	for (int i = 0; i < GRID_WIDTH; i++)
 	{
@@ -24,6 +21,9 @@ void Game::Initialize()
 			grid[i][j]->SetPosition(sf::Vector2f((float)j * grid[i][j]->GetImage()->GetWidth(), (float)i * grid[i][j]->GetImage()->GetHeight()));
 		}
 	}
+
+	player1.SetImage(*(imagePool.loadWithPool("Art/player1.png")));
+	player2.SetImage(*(imagePool.loadWithPool("Art/player2.png")));
 }
 
 void Game::Run()
@@ -70,6 +70,29 @@ void Game::Run()
 
 void Game::Update(float deltaTime)
 {
+	UpdateInput(deltaTime);
+}
+
+void Game::UpdateInput(float deltaTime)
+{
+	const sf::Input& input = window.GetInput();
+
+	if( fabs( input.GetJoystickAxis( 0, sf::Joy::AxisX ) ) > 25.0f )
+	{
+		player1.Move( player1.speed.x * input.GetJoystickAxis( 0, sf::Joy::AxisX ) * deltaTime, 0.0f );
+	}
+	if( fabs( input.GetJoystickAxis( 0, sf::Joy::AxisY ) ) > 25.0f )
+	{
+		player1.Move( 0.0f, player1.speed.y * input.GetJoystickAxis( 0, sf::Joy::AxisY ) * deltaTime );
+	}
+	if( fabs( input.GetJoystickAxis( 0, sf::Joy::AxisU ) ) > 25.0f )
+	{
+		player2.Move( player1.speed.x * input.GetJoystickAxis( 0, sf::Joy::AxisU ) * deltaTime, 0.0f );
+	}
+	if( fabs( input.GetJoystickAxis( 0, sf::Joy::AxisR ) ) > 25.0f )
+	{
+		player2.Move( 0.0f, player1.speed.y * input.GetJoystickAxis( 0, sf::Joy::AxisR ) * deltaTime );
+	}
 }
 
 void Game::Display()
@@ -84,8 +107,6 @@ void Game::Display()
 		}
 	}
 
-	for (unsigned int i = 0; i < entities.size(); i++)
-	{
-		window.Draw(*entities[i]);
-	}
+	window.Draw(player1);
+	window.Draw(player2);
 }
