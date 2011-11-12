@@ -7,23 +7,17 @@ Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::
 	sf::VideoMode vmode = sf::VideoMode(screenWidth, screenHeight, bpp);
 
 	window.Create(vmode, title, mode);
+
+	sf::Randomizer::SetSeed(static_cast<unsigned int>(time(NULL)));
 }
 
 void Game::Initialize()
 {
-	// Populate the grid
-	for (int i = 0; i < GRID_WIDTH; i++)
-	{
-		for (int j = 0; j < GRID_HEIGHT; j++)
-		{
-			grid[i][j] = new Entity();
-			grid[i][j]->SetImage(*(imagePool.loadWithPool("Art/meat.png")));
-			grid[i][j]->SetPosition(sf::Vector2f((float)j * grid[i][j]->GetImage()->GetWidth(), (float)i * grid[i][j]->GetImage()->GetHeight()));
-		}
-	}
-
 	player1.SetImage(*(imagePool.loadWithPool("Art/player1.png")));
 	player2.SetImage(*(imagePool.loadWithPool("Art/player2.png")));
+
+	grid.SetSize(4, 4);
+	grid.Populate(this);
 }
 
 void Game::Run()
@@ -98,14 +92,7 @@ void Game::UpdateInput(float deltaTime)
 void Game::Display()
 {
 	// Display grid
-	for (int i = 0; i < GRID_WIDTH; i++)
-	{
-		for (int j = 0; j < GRID_HEIGHT; j++)
-		{
-			Entity d = *grid[i][j];
-			window.Draw(d);
-		}
-	}
+	grid.Display(this);
 
 	window.Draw(player1);
 	window.Draw(player2);

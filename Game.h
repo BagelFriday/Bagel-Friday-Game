@@ -6,14 +6,12 @@
 #include <vector>
 #include "ImagePool.h"
 #include "Entity.h"
+#include "Grid.h"
 
 class Game
 {
 private:
 public:
-	static const int GRID_WIDTH = 4;
-	static const int GRID_HEIGHT = 4;
-
 	sf::RenderWindow window;
 
 	ImagePool imagePool;
@@ -21,7 +19,7 @@ public:
 	Entity player1;
 	Entity player2;
 
-	Entity* grid[GRID_WIDTH][GRID_HEIGHT];
+	Grid grid;
 
 	Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::string title);
 
