@@ -13,10 +13,14 @@ void Entity::Update(Game *game, float deltaTime)
 	{
 		for (int j = 0; j < game->grid.gridHeight; j++)
 		{
-			if (game->grid.grid[i][j]->isAlive && game->IsColliding(GetRect(), game->grid.grid[i][j]->GetRect()))
+			if (game->grid.grid[i][j]->isAlive		// This tile is active
+				&& game->IsColliding(GetRect(), game->grid.grid[i][j]->GetRect())	// We're touching it
+				&& game->window.GetInput().IsKeyDown((sf::Key::Code)game->grid.grid[i][j]->key))	// We're pressing the right key
 			{
+				// Kill the tile
 				game->grid.grid[i][j]->Die();
-				// do thangs
+
+				// Grab points
 			}
 		}
 	}

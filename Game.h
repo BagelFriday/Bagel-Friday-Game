@@ -36,6 +36,8 @@ public:
 	void Display();
 
 	bool IsColliding(sf::Rect<float>& rect1, sf::Rect<float>& rect2);
+
+	static std::string KeyToString(int keyCode);
 };
 
 #endif // GAME

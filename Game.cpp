@@ -110,3 +110,13 @@ bool Game::IsColliding(sf::Rect<float>& rect1, sf::Rect<float>& rect2)
 			  rect1.Top > rect2.Bottom ||
 			  rect1.Bottom < rect2.Top));
 }
+
+std::string Game::KeyToString(int keyCode)
+{
+	std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+	// Normalize to 0, yes this is dumb
+	keyCode -= 97;
+
+	return alphabet.substr(keyCode, 1);
+}

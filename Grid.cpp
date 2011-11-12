@@ -60,11 +60,11 @@ void Grid::Populate(Game *game)
 			}
 
 			// Key from random resource
-			std::string key;
-			if		(resourceType == "meat")		key = "m";
-			else if (resourceType == "gold")		key = "g";
-			else if (resourceType == "sticks")		key = "s";
-			else									key = "?";
+			int key;
+			if		(resourceType == "meat")		key = sf::Key::M;
+			else if (resourceType == "gold")		key = sf::Key::G;
+			else if (resourceType == "sticks")		key = sf::Key::S;
+			else									key = sf::Key::Z;
 
 			grid[i][j]->SetImage(*(game->imagePool.loadWithPool("Art/" + resourceType + ".png")));
 			grid[i][j]->type = resourceType;

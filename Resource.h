@@ -2,6 +2,7 @@
 #define RESOURCE
 
 #include "Entity.h"
+#include <SFML/Graphics.hpp>
 
 class Resource: public Entity
 {
@@ -11,7 +12,7 @@ public:
 
 	std::string type;
 
-	std::string key;
+	int key;
 
 	float probability;
 

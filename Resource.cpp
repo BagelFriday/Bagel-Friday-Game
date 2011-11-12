@@ -1,4 +1,5 @@
 #include "Resource.h"
+#include "Game.h"
 
 Resource::Resource() : isAlive(true)
 {
@@ -12,7 +13,7 @@ Resource::Resource(std::string _type, std::string _key, float _probability) : is
 
 void Resource::SetTextFromKey(sf::Font& font)
 {
-	displayText.SetText(key);
+	displayText.SetText(Game::KeyToString(key));
 	displayText.SetFont(font);
 	displayText.SetSize(50);
 }
