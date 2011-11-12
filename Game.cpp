@@ -20,10 +20,15 @@ screenHeight(_screenHeight)
 
 void Game::Initialize()
 {
+	grid.position = sf::Vector2f((screenWidth / 2.0f) - (grid.viewportWidth / 2.0f), (screenHeight / 2.0f) - (grid.viewportHeight / 2.0f));
+
 	const float FONT_INSET = 100.0f;
 	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f);
 	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f);
 	cannon.Initialize( this );
+
+	gridBackground.Initialize(this, "Art/grid-background.png");
+	gridBackground.SetPosition(grid.position);
 
 	grid.SetSize(4, 4);
 	grid.Populate(this);
@@ -60,7 +65,7 @@ void Game::Run()
 		}
 
 		// Clear the screen with red color
-		window.Clear(sf::Color(200, 0, 0));
+		window.Clear(sf::Color(50, 0, 0));
 
 		Update(window.GetFrameTime());
 
@@ -108,6 +113,8 @@ void Game::UpdateInput(float deltaTime)
 
 void Game::Display()
 {
+	window.Draw(gridBackground);
+
 	// Display grid
 	grid.Display(this);
 

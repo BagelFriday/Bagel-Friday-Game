@@ -4,6 +4,9 @@
 #include "Game.h"
 
 Grid::Grid()
+:
+viewportWidth(940),
+viewportHeight(705)
 {
 	// Set all NULL
 	for (int i = 0; i < MAX_GRID_HEIGHT; i++)
@@ -76,7 +79,11 @@ void Grid::Populate(Game *game)
 			grid[i][j]->SetTextFromKey(game->resourceFont);
 			grid[i][j]->pointValue = pointValue;
 
-			grid[i][j]->SetPosition(sf::Vector2f((float)j * grid[i][j]->GetImage()->GetWidth(), (float)i * grid[i][j]->GetImage()->GetHeight()));
+			// Position of cell that contains resource (cell is bigger than resource)
+			float cellWidth = (float)(viewportWidth) / (float)(gridWidth);
+			float cellHeight = (float)(viewportHeight) / (float)(gridHeight);
+			sf::Vector2f cellPosition(position.x + ((float)i * cellWidth), position.y + ((float)j * cellHeight));
+			grid[i][j]->SetPosition(sf::Vector2f(cellPosition.x + (cellWidth / 2.0f) - (grid[i][j]->GetImage()->GetWidth() / 2.0f), cellPosition.y + (cellHeight / 2.0f) - (grid[i][j]->GetImage()->GetHeight() / 2.0f)));
 			grid[i][j]->AlignText();
 		}
 	}

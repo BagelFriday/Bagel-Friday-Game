@@ -27,6 +27,8 @@ public:
 
 	Grid grid;
 
+	Entity gridBackground;
+
 	// Drawn on resources
 	sf::Font resourceFont;
 
