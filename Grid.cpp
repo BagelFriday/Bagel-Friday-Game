@@ -5,8 +5,8 @@
 
 Grid::Grid()
 :
-viewportWidth(940),
-viewportHeight(705)
+viewportWidth(660),
+viewportHeight(660)
 {
 	// Set all NULL
 	for (int i = 0; i < MAX_GRID_HEIGHT; i++)
