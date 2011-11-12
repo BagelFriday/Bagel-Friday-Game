@@ -21,6 +21,8 @@ public:
 
 	Grid grid;
 
+	sf::Font resourceFont;
+
 	Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::string title);
 
 	void Initialize();

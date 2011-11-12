@@ -9,6 +9,8 @@ Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::
 	window.Create(vmode, title, mode);
 
 	sf::Randomizer::SetSeed(static_cast<unsigned int>(time(NULL)));
+
+	resourceFont.LoadFromFile("arial.ttf", 50);
 }
 
 void Game::Initialize()
