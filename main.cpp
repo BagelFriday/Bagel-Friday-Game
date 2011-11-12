@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////
 int main()
 {
-	Game theGame(800, 600, 32, sf::Style::Close, "TeamBagelFriday");
+	Game theGame(1024, 768, 32, sf::Style::Close, "TeamBagelFriday");
 
 	theGame.Run();
 

@@ -10,8 +10,20 @@ Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::
 
 void Game::Initialize()
 {
+	// Player 1
 	entities.push_back(new Entity());
 	entities[entities.size() - 1]->SetImage(*(imagePool.loadWithPool("Art/player1.png")));
+
+	// Populate the grid
+	for (int i = 0; i < GRID_WIDTH; i++)
+	{
+		for (int j = 0; j < GRID_HEIGHT; j++)
+		{
+			grid[i][j] = new Entity();
+			grid[i][j]->SetImage(*(imagePool.loadWithPool("Art/meat.png")));
+			grid[i][j]->SetPosition(sf::Vector2f((float)j * grid[i][j]->GetImage()->GetWidth(), (float)i * grid[i][j]->GetImage()->GetHeight()));
+		}
+	}
 }
 
 void Game::Run()
@@ -62,7 +74,17 @@ void Game::Update(float deltaTime)
 
 void Game::Display()
 {
-	for (int i = 0; i < entities.size(); i++)
+	// Display grid
+	for (int i = 0; i < GRID_WIDTH; i++)
+	{
+		for (int j = 0; j < GRID_HEIGHT; j++)
+		{
+			Entity d = *grid[i][j];
+			window.Draw(d);
+		}
+	}
+
+	for (unsigned int i = 0; i < entities.size(); i++)
 	{
 		window.Draw(*entities[i]);
 	}
