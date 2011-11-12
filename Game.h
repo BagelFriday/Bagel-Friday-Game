@@ -12,6 +12,9 @@ class Game
 {
 private:
 public:
+	int screenWidth;
+	int screenHeight;
+
 	sf::RenderWindow window;
 
 	ImagePool imagePool;
@@ -27,7 +30,7 @@ public:
 	// Player point totals
 	sf::Font pointFont;
 
-	Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::string title);
+	Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title);
 
 	void Initialize();
 

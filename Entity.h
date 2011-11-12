@@ -18,7 +18,11 @@ public:
 
 	Entity();
 
-	void Initialize(Game *game, std::string filename, sf::Font& font, float fontSize, sf::Vector2f pointPos);
+	// Just load img
+	void Initialize(Game *game, std::string filename);
+
+	// For players
+	void PlayerInitialize(Game *game, std::string filename, sf::Font& font, float fontSize);
 
 	void Update(Game *game, float deltaTime);
 

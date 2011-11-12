@@ -10,14 +10,18 @@ myPoints(0)
 	speed = sf::Vector2f( 2.0f, 2.0f );
 }
 
-void Entity::Initialize(Game *game, std::string filename, sf::Font& font, float fontSize, sf::Vector2f pointPos)
+void Entity::Initialize(Game *game, std::string filename)
+{
+	SetImage(*(game->imagePool.loadWithPool(filename)));
+}
+
+void Entity::PlayerInitialize(Game *game, std::string filename, sf::Font& font, float fontSize)
 {
 	SetImage(*(game->imagePool.loadWithPool(filename)));
 
 	pointDisplay.SetFont(font);
 	pointDisplay.SetText("0");
 	pointDisplay.SetSize(fontSize);
-	pointDisplay.SetPosition(pointPos);
 }
 
 void Entity::Update(Game *game, float deltaTime)

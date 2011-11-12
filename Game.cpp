@@ -2,7 +2,10 @@
 #include "Entity.h"
 
 
-Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::string title)
+Game::Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title)
+:
+screenWidth(_screenWidth),
+screenHeight(_screenHeight)
 {
 	sf::VideoMode vmode = sf::VideoMode(screenWidth, screenHeight, bpp);
 
@@ -18,8 +21,8 @@ Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::
 void Game::Initialize()
 {
 	const float FONT_INSET = 100.0f;
-	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f, sf::Vector2f(FONT_INSET, 768.0f - FONT_INSET));
-	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f, sf::Vector2f(1024 - FONT_INSET, 768.0f - FONT_INSET));
+	player1.PlayerInitialize(this, "Art/player1.png", pointFont, 80.0f);
+	player2.PlayerInitialize(this, "Art/player2.png", pointFont, 80.0f);
 
 	grid.SetSize(4, 4);
 	grid.Populate(this);
