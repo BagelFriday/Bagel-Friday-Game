@@ -3,6 +3,8 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include "Game.h"
 
 
 ////////////////////////////////////////////////////////////
@@ -13,6 +15,11 @@
 ////////////////////////////////////////////////////////////
 int main()
 {
+	Game theGame(800, 600, 32, sf::Style::Close, "TeamBagelFriday");
+
+	theGame.Run();
+
+	/*
 	// Create the main rendering window
 	sf::RenderWindow App(sf::VideoMode(800, 600, 32), "SFML Graphics");
 
@@ -49,6 +56,7 @@ int main()
 		// Display window contents on screen
 		App.Display();
 	}
+	*/
 
 	return EXIT_SUCCESS;
 }
