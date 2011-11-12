@@ -14,16 +14,7 @@ void Game::Initialize()
 	entities.push_back(new Entity());
 	entities[entities.size() - 1]->SetImage(*(imagePool.loadWithPool("Art/player1.png")));
 
-	// Populate the grid
-	for (int i = 0; i < GRID_WIDTH; i++)
-	{
-		for (int j = 0; j < GRID_HEIGHT; j++)
-		{
-			grid[i][j] = new Entity();
-			grid[i][j]->SetImage(*(imagePool.loadWithPool("Art/meat.png")));
-			grid[i][j]->SetPosition(sf::Vector2f((float)j * grid[i][j]->GetImage()->GetWidth(), (float)i * grid[i][j]->GetImage()->GetHeight()));
-		}
-	}
+	grid.Populate(this);
 }
 
 void Game::Run()
@@ -75,14 +66,7 @@ void Game::Update(float deltaTime)
 void Game::Display()
 {
 	// Display grid
-	for (int i = 0; i < GRID_WIDTH; i++)
-	{
-		for (int j = 0; j < GRID_HEIGHT; j++)
-		{
-			Entity d = *grid[i][j];
-			window.Draw(d);
-		}
-	}
+	grid.Display(this);
 
 	for (unsigned int i = 0; i < entities.size(); i++)
 	{

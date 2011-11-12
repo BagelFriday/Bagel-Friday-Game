@@ -180,6 +180,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Grid.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ImagePool.cpp"
 				>
 			</File>
@@ -199,6 +203,10 @@
 			</File>
 			<File
 				RelativePath=".\Game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Grid.h"
 				>
 			</File>
 			<File
