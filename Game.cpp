@@ -14,6 +14,7 @@ void Game::Initialize()
 	entities.push_back(new Entity());
 	entities[entities.size() - 1]->SetImage(*(imagePool.loadWithPool("Art/player1.png")));
 
+	grid.SetSize(4, 4);
 	grid.Populate(this);
 }
 
