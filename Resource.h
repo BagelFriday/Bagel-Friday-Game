@@ -7,6 +7,8 @@ class Resource: public Entity
 {
 private:
 public:
+	bool isAlive;
+
 	std::string type;
 
 	std::string key;
@@ -25,6 +27,8 @@ public:
 	void SetTextFromKey(sf::Font& font);
 
 	void AlignText();
+
+	void Die();
 };
 
 #endif // RESOURCE

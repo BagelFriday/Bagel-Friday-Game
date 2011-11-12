@@ -67,6 +67,9 @@ void Game::Run()
 void Game::Update(float deltaTime)
 {
 	UpdateInput(deltaTime);
+
+	player1.Update(this, deltaTime);
+	player2.Update(this, deltaTime);
 }
 
 void Game::UpdateInput(float deltaTime)
@@ -98,4 +101,12 @@ void Game::Display()
 
 	window.Draw(player1);
 	window.Draw(player2);
+}
+
+bool Game::IsColliding(sf::Rect<float>& rect1, sf::Rect<float>& rect2)
+{
+	return (!(rect1.Left > rect2.Right ||
+			  rect1.Right < rect2.Left ||
+			  rect1.Top > rect2.Bottom ||
+			  rect1.Bottom < rect2.Top));
 }

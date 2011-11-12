@@ -34,6 +34,8 @@ public:
 	void UpdateInput(float deltaTime);
 
 	void Display();
+
+	bool IsColliding(sf::Rect<float>& rect1, sf::Rect<float>& rect2);
 };
 
 #endif // GAME
