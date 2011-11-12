@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Entity.h"
 
 Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::string title)
 {
@@ -8,7 +9,10 @@ Game::Game(int screenWidth, int screenHeight, int bpp, unsigned long mode, std::
 }
 
 void Game::Initialize()
-{ }
+{
+	entities.push_back(new Entity());
+	entities[entities.size() - 1]->SetImage(*(imagePool.loadWithPool("Art/player1.png")));
+}
 
 void Game::Run()
 {
@@ -53,7 +57,13 @@ void Game::Run()
 }
 
 void Game::Update(float deltaTime)
-{ }
+{
+}
 
 void Game::Display()
-{ }
+{
+	for (int i = 0; i < entities.size(); i++)
+	{
+		window.Draw(*entities[i]);
+	}
+}

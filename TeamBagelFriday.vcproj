@@ -180,6 +180,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ImagePool.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -195,6 +199,10 @@
 			</File>
 			<File
 				RelativePath=".\Game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ImagePool.h"
 				>
 			</File>
 		</Filter>
