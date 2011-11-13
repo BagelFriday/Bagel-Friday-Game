@@ -218,6 +218,8 @@ void Grid::SpawnResource(Game *game)
 
 void Grid::RemoveResource(int row, int col)
 {
+	if( !resourceCellArray[row][col] )
+		return;
 	switch( resourceCellArray[row][col]->type )
 	{
 	case RESOURCE_MEAT:
