@@ -175,12 +175,17 @@ void Grid::SpawnResource(Game *game)
 						}
 					}
 
+					
+
 					resourceCellArray[i][j]->key = key;
 					keyMap[static_cast<sf::Key::Code>(key)] = sf::Vector2i(i, j);
+					resourceCellArray[i][j]->SetTextFromKey(game->resourceFont);
+
+					if( key >= 65 && key <= 90 )
+						resourceCellArray[i][j]->key += 32;
 					
 					resourceCellArray[i][j]->SetImage(*(game->imagePool.loadWithPool("Art/" + resourceType + ".png")));
 					resourceCellArray[i][j]->type = resourceType;
-					resourceCellArray[i][j]->SetTextFromKey(game->resourceFont);
 					resourceCellArray[i][j]->pointValue = pointValue;
 
 					// Position of cell that contains resource (cell is bigger than resource)
