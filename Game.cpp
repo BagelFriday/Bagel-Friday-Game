@@ -30,6 +30,10 @@ void Game::Initialize()
 
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
+
+	gameTime.Reset();
+
+	gameState = GAME_PLAYING;
 }
 
 void Game::Run()
@@ -78,6 +82,12 @@ void Game::Run()
 
 void Game::Update(float deltaTime)
 {
+	if (gameTime.GetElapsedTime() > TIME_OVER)
+	{
+		// Game over
+		gameState = GAME_OVER;
+	}
+
 	UpdateInput(deltaTime);
 
 	if(numActiveResources < Grid::MAX_GRID_WIDTH * Grid::MAX_GRID_HEIGHT && resourceSpawnTimer.GetElapsedTime() > 1.0f )
