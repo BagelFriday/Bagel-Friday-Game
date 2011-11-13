@@ -8,15 +8,12 @@ class Resource: public Entity
 {
 private:
 public:
-	bool isAlive;
 
 	std::string type;
 
 	int key;
 
 	int pointValue;
-
-	float probability;
 
 	// Font used for all resources
 	sf::Font font;
@@ -31,7 +28,6 @@ public:
 
 	void AlignText();
 
-	void Die();
 };
 
 #endif // RESOURCE

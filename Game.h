@@ -17,6 +17,7 @@ public:
 	int screenWidth;
 	int screenHeight;
 
+	sf::Clock resourceSpawnTimer;
 	sf::RenderWindow window;
 
 	ImagePool imagePool;
@@ -26,6 +27,7 @@ public:
 	Cannon cannon;
 
 	Grid grid;
+	int numActiveResources;
 
 	// Drawn on resources
 	sf::Font resourceFont;
@@ -45,7 +47,6 @@ public:
 
 	void Display();
 
-	bool IsColliding(sf::Rect<float>& rect1, sf::Rect<float>& rect2);
 
 	static std::string KeyToString(int keyCode);
 };

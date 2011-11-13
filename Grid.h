@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "Resource.h"
 
+#define GRID_SIZE 5
+#define NUM_RESOURCE_KINDS 3
+
 class Game;
 
 class Grid
@@ -11,17 +14,18 @@ class Grid
 private:
 public:
 	// Attributes
-	static const int MAX_GRID_WIDTH = 4;
-	static const int MAX_GRID_HEIGHT = 4;
-	// <= the max values
+	
 	int gridWidth;
 	int gridHeight;
+	int numActiveResources;
 
-	Resource* grid[MAX_GRID_WIDTH][MAX_GRID_HEIGHT];
+	Resource* resourceCellArray[GRID_SIZE][GRID_SIZE];
 
 	Grid();
+	~Grid();
 
-	void Populate(Game *game);
+	void SpawnResource(Game *game);
+	void RemoveResource(Resource* resourceCell);
 
 	void Display(Game *game);
 

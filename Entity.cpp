@@ -28,3 +28,13 @@ sf::Rect<float> Entity::GetRect()
 	h = GetSubRect().GetHeight() * GetScale().y;
 	return sf::Rect<float>(x, y, x + w, y + h);
 }
+
+sf::Vector2f Entity::GetCenter()
+{
+	float x, y, w, h;
+	x = GetPosition().x;
+	y = GetPosition().y;
+	w = GetSubRect().GetWidth() * GetScale().x;
+	h = GetSubRect().GetHeight() * GetScale().y;
+	return sf::Vector2f( (x + w) / 2.0f, (y + h) / 2.0f );
+}
