@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Resource.h"
 
-#define NUM_RESOURCE_KINDS 4
+#define NUM_RESOURCE_KINDS 5
 
 class Game;
 
@@ -32,7 +32,7 @@ public:
 	~Grid();
 
 	void SpawnResource(Game *game);
-	void RemoveResource(Resource* resourceCell);
+	void RemoveResource(int row, int col);
 
 	void Display(Game *game);
 };

@@ -30,6 +30,10 @@ void Game::Initialize()
 
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
+
+	gameTime.Reset();
+
+	gameState = GAME_PLAYING;
 }
 
 void Game::Run()
@@ -78,6 +82,12 @@ void Game::Run()
 
 void Game::Update(float deltaTime)
 {
+	if (gameTime.GetElapsedTime() > TIME_OVER)
+	{
+		// Game over
+		gameState = GAME_OVER;
+	}
+
 	UpdateInput(deltaTime);
 
 	if(numActiveResources < Grid::MAX_GRID_WIDTH * Grid::MAX_GRID_HEIGHT && resourceSpawnTimer.GetElapsedTime() > 1.0f )
@@ -86,31 +96,40 @@ void Game::Update(float deltaTime)
 		resourceSpawnTimer.Reset();
 	}
 
-	for (int i = 0; i < Grid::MAX_GRID_HEIGHT; i++)
-	{
-		for (int j = 0; j < Grid::MAX_GRID_WIDTH; j++)
-		{
-			if( grid.resourceCellArray[i][j] != NULL && // Check to see if cell Exists
-				window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[i][j]->key) )// If key for cell is pressed
-			{
-				bool p1_collect = player1.CheckSquare( grid.resourceCellArray[i][j] );
-				bool p2_collect = player2.CheckSquare( grid.resourceCellArray[i][j] );
+	float cellWidth = (float)(grid.viewportWidth) / (float)(Grid::MAX_GRID_WIDTH);
+	float cellHeight = (float)(grid.viewportHeight) / (float)(Grid::MAX_GRID_HEIGHT);
+		
+	sf::Vector2f point = player1.GetCenter();
+	int i1 = static_cast<int>( player1.GetCenter().y / cellHeight);
+	int j1 = static_cast<int>( player1.GetCenter().x / cellWidth);
+	int i2 = static_cast<int>( player2.GetCenter().y / cellHeight);
+	int j2 = static_cast<int>( player2.GetCenter().x / cellWidth);
+	bool p1_collect = false;
+	bool p2_collect = false;
 
-				if( p1_collect )
-				{
-					player1.myPoints += grid.resourceCellArray[i][j]->pointValue;
-				}
-				if( p2_collect )
-				{
-					player1.myPoints += grid.resourceCellArray[i][j]->pointValue;
-				}
-				if( p1_collect || p2_collect )
-				{
-					grid.RemoveResource( grid.resourceCellArray[i][j] );
-					grid.resourceCellArray[i][j] = NULL;
-				}
-			}
-		}
+	if( grid.resourceCellArray[i1][j1] && // Check to see if cell Exists
+		window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[i1][j1]->key) )// If key for cell is pressed
+	{
+		p1_collect = true;
+
+		player1.myPoints += grid.resourceCellArray[i1][j1]->pointValue;
+	}
+	if( grid.resourceCellArray[i2][j2] && // Check to see if cell Exists
+		window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[i2][j2]->key) )// If key for cell is pressed
+	{
+		p2_collect = true;
+
+		player2.myPoints += grid.resourceCellArray[i2][j2]->pointValue;
+	}
+	if( p1_collect )
+	{
+		grid.RemoveResource( i1, j1 );
+		grid.resourceCellArray[i1][j1] = NULL;
+	}
+	if( p2_collect && i1 != i2 && j1 != j2 )
+	{
+		grid.RemoveResource( i2, j2 );
+		grid.resourceCellArray[i2][j2] = NULL;
 	}
 
 	player1.Update(this, deltaTime);

@@ -22,16 +22,6 @@ void Player::Update(Game *game, float deltaTime)
 	Entity::Update(game, deltaTime);
 }
 
-bool Player::CheckSquare( Resource* resourceCell )
-{
-	if ( IsColliding( resourceCell->GetRect() ) )	// This tile is active
-	{
-		// Grab points
-		return true;
-	}
-	return false;
-}
-
 bool Player::IsColliding( sf::Rect<float>& rect )
 {
 	sf::Vector2f point = GetCenter();

@@ -16,7 +16,6 @@ public:
 
 	void Update(Game *game, float deltaTime);
 	void UpdatePointDisplay();
-	bool CheckSquare(Resource* resourceCell );
 	bool IsColliding(sf::Rect<float>& rect);
 };
 
