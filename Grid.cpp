@@ -1,3 +1,4 @@
+#include <cassert>
 #include "Grid.h"
 #include "Entity.h"
 #include "ImagePool.h"
@@ -9,84 +10,122 @@ viewportWidth(660),
 viewportHeight(660)
 {
 	// Set all NULL
-	for (int i = 0; i < MAX_GRID_HEIGHT; i++)
+	for (int i = 0; i < GRID_SIZE; i++)
 	{
-		for (int j = 0; j < MAX_GRID_WIDTH; j++)
+		for (int j = 0; j < GRID_SIZE; j++)
 		{
-			grid[i][j] = NULL;
+			resourceCellArray[i][j] = NULL;
+		}
+	}
+	numActiveResources = 0;
+}
+
+Grid::~Grid()
+{
+	// Set all NULL
+	for (int i = 0; i < GRID_SIZE; i++)
+	{
+		for (int j = 0; j < GRID_SIZE; j++)
+		{
+			if(resourceCellArray[i][j] != NULL )
+			{
+				delete resourceCellArray[i][j];
+			}
 		}
 	}
 }
 
 void Grid::SetSize(int rows, int columns)
 {
-	if (rows <= MAX_GRID_HEIGHT)
+	if (rows <= GRID_SIZE)
 	{
 		gridHeight = rows;
 	}
-	if (columns <= MAX_GRID_WIDTH)
+	if (columns <= GRID_SIZE)
 	{
 		gridWidth = columns;
 	}
 }
 
-void Grid::Populate(Game *game)
+void Grid::SpawnResource(Game *game)
 {
+	int randomResourcePosition = 0;
+	if( (gridWidth * gridHeight ) > numActiveResources )
+	{
+		randomResourcePosition= sf::Randomizer::Random(0, (gridWidth * gridHeight ) - numActiveResources - 1);
+	}
+	else if( (gridWidth * gridHeight ) != numActiveResources )
+	{
+		assert(true); // Should not call this function if no slots are available
+	}
+	int randomResourceKind = sf::Randomizer::Random(0, NUM_RESOURCE_KINDS - 1 );
+
 	for (int i = 0; i < gridWidth; i++)
 	{
 		for (int j = 0; j < gridHeight; j++)
 		{
-			if (grid[i][j] != NULL)
+			if( resourceCellArray[i][j] == NULL)
 			{
-				delete grid[i][j];
-			}
+				if( randomResourcePosition == 0 )
+				{
+					resourceCellArray[i][j] = new Resource();
 
-			grid[i][j] = new Resource();
+					std::string resourceType;
+					int pointValue;
 
-			// Make a random choice of resource
-			const int NUM_RESOURCES = 3;
-			int randomResource = sf::Randomizer::Random(0, NUM_RESOURCES - 1);
-			std::string resourceType;
-			int pointValue;
+					// Random resource
+					switch(randomResourceKind)
+					{
+					case 0:
+						resourceType = "meat";
+						pointValue = 2;
+						break;
+					case 1:
+						resourceType = "sticks";
+						pointValue = 1;
+						break;
+					case 2:
+						resourceType = "gold";
+						pointValue = 3;
+						break;
+					}
 
-			// Random resource
-			switch(randomResource)
-			{
-			case 0:
-				resourceType = "meat";
-				pointValue = 2;
-				break;
-			case 1:
-				resourceType = "sticks";
-				pointValue = 1;
-				break;
-			case 2:
-				resourceType = "gold";
-				pointValue = 3;
-				break;
-			}
+					// Key from random resource
+					int key;
+					if		(resourceType == "meat")		key = sf::Key::M;
+					else if (resourceType == "gold")		key = sf::Key::G;
+					else if (resourceType == "sticks")		key = sf::Key::S;
+					else									key = sf::Key::Z;
 
-			// Key from random resource
-			int key;
-			if		(resourceType == "meat")		key = sf::Key::M;
-			else if (resourceType == "gold")		key = sf::Key::G;
-			else if (resourceType == "sticks")		key = sf::Key::S;
-			else									key = sf::Key::Z;
-
-			grid[i][j]->SetImage(*(game->imagePool.loadWithPool("Art/" + resourceType + ".png")));
-			grid[i][j]->type = resourceType;
-			grid[i][j]->key = key;
-			grid[i][j]->SetTextFromKey(game->resourceFont);
-			grid[i][j]->pointValue = pointValue;
+					resourceCellArray[i][j]->SetImage(*(game->imagePool.loadWithPool("Art/" + resourceType + ".png")));
+					resourceCellArray[i][j]->type = resourceType;
+					resourceCellArray[i][j]->key = key;
+					resourceCellArray[i][j]->SetTextFromKey(game->resourceFont);
+					resourceCellArray[i][j]->pointValue = pointValue;
 
 			// Position of cell that contains resource (cell is bigger than resource)
-			float cellWidth = (float)(viewportWidth) / (float)(gridWidth);
-			float cellHeight = (float)(viewportHeight) / (float)(gridHeight);
-			sf::Vector2f cellPosition(position.x + ((float)i * cellWidth), position.y + ((float)j * cellHeight));
-			grid[i][j]->SetPosition(sf::Vector2f(cellPosition.x + (cellWidth / 2.0f) - (grid[i][j]->GetImage()->GetWidth() / 2.0f), cellPosition.y + (cellHeight / 2.0f) - (grid[i][j]->GetImage()->GetHeight() / 2.0f)));
-			grid[i][j]->AlignText();
+					float cellWidth = (float)(viewportWidth) / (float)(gridWidth);
+					float cellHeight = (float)(viewportHeight) / (float)(gridHeight);
+					sf::Vector2f cellPosition(position.x + ((float)i * cellWidth), position.y + ((float)j * cellHeight));
+					resourceCellArray[i][j]->SetPosition(sf::Vector2f(cellPosition.x + (cellWidth / 2.0f) - (resourceCellArray[i][j]->GetImage()->GetWidth() / 2.0f), cellPosition.y + (cellHeight / 2.0f) - (resourceCellArray[i][j]->GetImage()->GetHeight() / 2.0f)));
+					resourceCellArray[i][j]->AlignText();
+					numActiveResources++;
+					return;
+				}
+				else
+				{
+					randomResourcePosition--;
+				}
+			}
 		}
 	}
+}
+
+void Grid::RemoveResource(Resource* resourceCell)
+{
+	delete resourceCell;
+	numActiveResources--;
+
 }
 
 void Grid::Display(Game *game)
@@ -95,8 +134,11 @@ void Grid::Display(Game *game)
 	{
 		for (int j = 0; j < gridHeight; j++)
 		{
-			game->window.Draw(*grid[i][j]);
-			game->window.Draw(grid[i][j]->displayText);
+			if( game->grid.resourceCellArray[i][j] != NULL )
+			{
+				game->window.Draw(*resourceCellArray[i][j]);
+				game->window.Draw(resourceCellArray[i][j]->displayText);
+			}
 		}
 	}
 }

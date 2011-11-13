@@ -2,19 +2,7 @@
 #include "Game.h"
 
 Resource::Resource()
-:
-isAlive(true),
-pointValue(0)
 {
-}
-
-Resource::Resource(std::string _type, std::string _key, float _probability)
-:
-isAlive(true),
-pointValue(0)
-{
-	type = _type;
-	probability = _probability;
 }
 
 void Resource::SetTextFromKey(sf::Font& font)
@@ -27,12 +15,4 @@ void Resource::SetTextFromKey(sf::Font& font)
 void Resource::AlignText()
 {
 	displayText.SetPosition(GetPosition());
-}
-
-void Resource::Die()
-{
-	const sf::Color transparent(255, 255, 255, 0);
-	isAlive = false;
-	SetColor(transparent);
-	displayText.SetColor(transparent);
 }

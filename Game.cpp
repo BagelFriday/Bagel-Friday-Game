@@ -22,7 +22,6 @@ void Game::Initialize()
 {
 	grid.position = sf::Vector2f((screenWidth / 2.0f) - (grid.viewportWidth / 2.0f), (screenHeight / 2.0f) - (grid.viewportHeight / 2.0f));
 
-	const float FONT_INSET = 100.0f;
 	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f);
 	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f);
 	cannon.Initialize( this );
@@ -31,7 +30,8 @@ void Game::Initialize()
 	gridBackground.SetPosition(grid.position);
 
 	grid.SetSize(4, 4);
-	grid.Populate(this);
+	grid.SpawnResource(this);
+	resourceSpawnTimer.Reset();
 }
 
 void Game::Run()
@@ -81,6 +81,38 @@ void Game::Run()
 void Game::Update(float deltaTime)
 {
 	UpdateInput(deltaTime);
+
+	if(numActiveResources < grid.gridWidth * grid.gridHeight && resourceSpawnTimer.GetElapsedTime() > 1.0f )
+	{
+		grid.SpawnResource(this);
+		resourceSpawnTimer.Reset();
+	}
+
+	for (int i = 0; i < grid.gridWidth; i++)
+	{
+		for (int j = 0; j < grid.gridHeight; j++)
+		{
+			if( grid.resourceCellArray[i][j] != NULL && // Check to see if cell Exists
+				window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[i][j]->key) )// If key for cell is pressed
+			{
+				bool p1_collect = player1.CheckSquare( grid.resourceCellArray[i][j] );
+				bool p2_collect = player2.CheckSquare( grid.resourceCellArray[i][j] );
+
+				if( p1_collect )
+				{
+					player1.myPoints += grid.resourceCellArray[i][j]->pointValue;
+				}
+				if( p2_collect )
+				{
+					player1.myPoints += grid.resourceCellArray[i][j]->pointValue;
+				}
+				if( p1_collect || p2_collect )
+				{
+					grid.RemoveResource( grid.resourceCellArray[i][j] );
+				}
+			}
+		}
+	}
 
 	player1.Update(this, deltaTime);
 	player2.Update(this, deltaTime);
@@ -135,14 +167,6 @@ void Game::Display()
 	}
 	window.Draw(player1.pointDisplay);
 	window.Draw(player2.pointDisplay);
-}
-
-bool Game::IsColliding(sf::Rect<float>& rect1, sf::Rect<float>& rect2)
-{
-	return (!(rect1.Left > rect2.Right ||
-			  rect1.Right < rect2.Left ||
-			  rect1.Top > rect2.Bottom ||
-			  rect1.Bottom < rect2.Top));
 }
 
 std::string Game::KeyToString(int keyCode)
