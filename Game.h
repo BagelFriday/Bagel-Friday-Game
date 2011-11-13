@@ -70,7 +70,7 @@ public:
 	void Display();
 
 
-	static std::string KeyToString(int keyCode);
+	//static std::string KeyToString(int keyCode);
 };
 
 #endif // GAME
