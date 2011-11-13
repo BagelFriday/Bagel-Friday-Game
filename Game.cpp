@@ -46,6 +46,8 @@ void Game::Run()
 			// A key has been pressed
 			if (Event.Type == sf::Event::KeyPressed)
 			{
+				if(Event.Key.Code == sf::Key::Space)
+					cannon.FireShot( sf::Vector2f(100, 100), this );
 				// Escape key : exit
 				if (Event.Key.Code == sf::Key::Escape)
 					window.Close();
@@ -77,6 +79,7 @@ void Game::Update(float deltaTime)
 
 	player1.Update(this, deltaTime);
 	player2.Update(this, deltaTime);
+	cannon.UpdateShots(deltaTime);
 }
 
 void Game::UpdateInput(float deltaTime)
@@ -108,6 +111,16 @@ void Game::Display()
 
 	window.Draw(player1);
 	window.Draw(player2);
+	window.Draw(cannon.sprite);
+	
+	std::list<Entity>::iterator i = cannon.Shots.begin();
+	for(; i != cannon.Shots.end(); ++i)
+	{
+		if( i->Visible )
+		{
+			window.Draw(*i);
+		}
+	}
 	window.Draw(player1.pointDisplay);
 	window.Draw(player2.pointDisplay);
 }

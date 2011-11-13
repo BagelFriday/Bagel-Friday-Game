@@ -14,6 +14,11 @@ public:
 
 	int myPoints;
 
+	float Z_Velocity;
+	float Z_Pos;
+	sf::Vector2f ShotTarget;
+	bool Visible;
+
 	sf::String pointDisplay;
 
 	Entity();
