@@ -11,7 +11,7 @@ public:
 
 	std::string type;
 
-	int key;
+	char key;
 
 	int pointValue;
 

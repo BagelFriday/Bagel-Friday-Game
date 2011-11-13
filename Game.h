@@ -88,7 +88,7 @@ public:
 
 	void KeepPlayerInScreen(Player& player);
 
-	static std::string KeyToString(int keyCode);
+	//static std::string KeyToString(int keyCode);
 };
 
 #endif // GAME

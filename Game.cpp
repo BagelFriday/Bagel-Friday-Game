@@ -241,7 +241,7 @@ void Game::Update(float deltaTime)
 		grid.RemoveResource( i1, j1 );
 		grid.resourceCellArray[i1][j1] = NULL;
 	}
-	if( p2_collect && i1 != i2 && j1 != j2 )
+	if( p2_collect && !(i1 == i2 && j1 == j2) )
 	{
 		grid.RemoveResource( i2, j2 );
 		grid.resourceCellArray[i2][j2] = NULL;
@@ -302,13 +302,13 @@ void Game::Display()
 	window.Draw(player2.pointDisplay);
 	window.Draw(ageDisplay);
 }
-
+/*
 std::string Game::KeyToString(int keyCode)
 {
-	std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
+	std::string character = "abcdefghijklmnopqrstuvwxyz";
 
 	// Normalize to 0, yes this is dumb
 	keyCode -= 97;
 
 	return alphabet.substr(keyCode, 1);
-}
+}*/
