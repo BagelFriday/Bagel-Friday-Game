@@ -30,7 +30,8 @@ void Game::Initialize()
 	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f);
 	player2.SetX(screenWidth - player2.GetRect().GetWidth());
 	cannon.Initialize( this );
-
+	music.OpenFromFile( "Sound/Modest_Mussorgsky_-_night_on_bald_mountain.ogg" );
+	music.Play();
 
 	collection.LoadFromFile( "Sound/75235__creek23__cha-ching.wav" );
 
