@@ -20,25 +20,23 @@ void Player::Initialize(Game *game, std::string filename, sf::Font& font, float 
 void Player::Update(Game *game, float deltaTime)
 {
 	Entity::Update(game, deltaTime);
+}
 
-	// Are we over a tile?
-	for (int i = 0; i < Grid::MAX_GRID_HEIGHT; i++)
+bool Player::CheckSquare( Resource* resourceCell )
+{
+	if ( IsColliding( resourceCell->GetRect() ) )	// This tile is active
 	{
-		for (int j = 0; j < Grid::MAX_GRID_WIDTH; j++)
-		{
-			if (game->grid.grid[i][j]->isAlive		// This tile is active
-				&& game->IsColliding(GetRect(), game->grid.grid[i][j]->GetRect())	// We're touching it
-				&& game->window.GetInput().IsKeyDown((sf::Key::Code)game->grid.grid[i][j]->key))	// We're pressing the right key
-			{
-				// Kill the tile
-				game->grid.grid[i][j]->Die();
-
-				// Grab points
-				myPoints += game->grid.grid[i][j]->pointValue;
-				UpdatePointDisplay();
-			}
-		}
+		// Grab points
+		return true;
 	}
+	return false;
+}
+
+bool Player::IsColliding( sf::Rect<float>& rect )
+{
+	sf::Vector2f point = GetCenter();
+	return (	point.x < rect.Right && point.x > rect.Left &&
+				point.y < rect.Bottom && point.y > rect.Top );
 }
 
 void Player::UpdatePointDisplay()
