@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Resource.h"
 
-#define NUM_RESOURCE_KINDS 5
+#define NUM_RESOURCE_KINDS 6
 
 class Game;
 

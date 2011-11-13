@@ -72,14 +72,18 @@ void Grid::SpawnResource(Game *game)
 						pointValue = 1;
 						break;
 					case 2:
+						resourceType = "steel";
+						pointValue = 1;
+						break;
+					case 3:
 						resourceType = "gold";
 						pointValue = 3;
 						break;
-					case 3:
+					case 4:
 						resourceType = "silicon";
 						pointValue = 4;
 						break;
-					case 4:
+					case 5:
 						resourceType = "love";
 						pointValue = 5;
 						break;
@@ -88,6 +92,7 @@ void Grid::SpawnResource(Game *game)
 					// Key from random resource
 					int key;
 					if		(resourceType == "meat")		key = sf::Key::M;
+					else if (resourceType == "steel")		key = sf::Key::T;
 					else if (resourceType == "gold")		key = sf::Key::G;
 					else if (resourceType == "sticks")		key = sf::Key::S;
 					else if (resourceType == "silicon")		key = sf::Key::H;
