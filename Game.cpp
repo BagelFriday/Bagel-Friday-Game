@@ -170,10 +170,11 @@ void Game::Update(float deltaTime)
 		std::stringstream ss2;
 		ss2 << "Player 2 total: ";
 		ss2 << player2.myPoints;
+		ss2 << "\n\n\t   who won?";
 		player2Points.SetText(ss2.str());
 		player2Points.SetFont(pointFont);
 		player2Points.SetSize(80);
-		player2Points.SetPosition(10.0f, 60.0f);
+		player2Points.SetPosition(10.0f, 80.0f);
 	}
 	else if (gameTime.GetElapsedTime() > THIRD_AGE)
 	{
