@@ -5,6 +5,9 @@
 #include "Game.h"
 
 Grid::Grid()
+:
+viewportWidth(660),
+viewportHeight(660)
 {
 	// Set all NULL
 	for (int i = 0; i < GRID_SIZE; i++)
@@ -100,7 +103,11 @@ void Grid::SpawnResource(Game *game)
 					resourceCellArray[i][j]->SetTextFromKey(game->resourceFont);
 					resourceCellArray[i][j]->pointValue = pointValue;
 
-					resourceCellArray[i][j]->SetPosition(sf::Vector2f((float)j * resourceCellArray[i][j]->GetImage()->GetWidth(), (float)i * resourceCellArray[i][j]->GetImage()->GetHeight()));
+			// Position of cell that contains resource (cell is bigger than resource)
+					float cellWidth = (float)(viewportWidth) / (float)(gridWidth);
+					float cellHeight = (float)(viewportHeight) / (float)(gridHeight);
+					sf::Vector2f cellPosition(position.x + ((float)i * cellWidth), position.y + ((float)j * cellHeight));
+					resourceCellArray[i][j]->SetPosition(sf::Vector2f(cellPosition.x + (cellWidth / 2.0f) - (resourceCellArray[i][j]->GetImage()->GetWidth() / 2.0f), cellPosition.y + (cellHeight / 2.0f) - (resourceCellArray[i][j]->GetImage()->GetHeight() / 2.0f)));
 					resourceCellArray[i][j]->AlignText();
 					numActiveResources++;
 					return;

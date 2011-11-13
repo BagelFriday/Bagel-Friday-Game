@@ -29,6 +29,8 @@ public:
 	Grid grid;
 	int numActiveResources;
 
+	Entity gridBackground;
+
 	// Drawn on resources
 	sf::Font resourceFont;
 
