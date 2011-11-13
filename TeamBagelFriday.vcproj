@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sfml-system-s-d.lib sfml-window-s-d.lib sfml-main-d.lib sfml-graphics-s-d.lib"
+				AdditionalDependencies="sfml-system-s-d.lib sfml-window-s-d.lib sfml-main-d.lib sfml-graphics-s-d.lib sfml-audio-s-d.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"

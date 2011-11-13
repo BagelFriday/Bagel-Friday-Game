@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include "ImagePool.h"
 #include "Player.h"
@@ -49,6 +50,9 @@ public:
 	Cannon cannon;
 	Entity titleScreen;
 	Entity instructionScreen;
+
+	sf::SoundBuffer collection;
+	sf::Music music;
 
 	Grid grid;
 	int numActiveResources;
