@@ -20,7 +20,7 @@ screenHeight(_screenHeight)
 
 void Game::Initialize()
 {
-	grid.position = sf::Vector2f((screenWidth / 2.0f) - (grid.viewportWidth / 2.0f), (screenHeight / 2.0f) - (grid.viewportHeight / 2.0f));
+	grid.position = sf::Vector2f(0.0f, 0.0f);
 
 	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f);
 	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f);
@@ -29,7 +29,6 @@ void Game::Initialize()
 	gridBackground.Initialize(this, "Art/grid-background.png");
 	gridBackground.SetPosition(grid.position);
 
-	grid.SetSize(4, 4);
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
 }
@@ -82,15 +81,15 @@ void Game::Update(float deltaTime)
 {
 	UpdateInput(deltaTime);
 
-	if(numActiveResources < grid.gridWidth * grid.gridHeight && resourceSpawnTimer.GetElapsedTime() > 1.0f )
+	if(numActiveResources < Grid::MAX_GRID_WIDTH * Grid::MAX_GRID_HEIGHT && resourceSpawnTimer.GetElapsedTime() > 1.0f )
 	{
 		grid.SpawnResource(this);
 		resourceSpawnTimer.Reset();
 	}
 
-	for (int i = 0; i < grid.gridWidth; i++)
+	for (int i = 0; i < Grid::MAX_GRID_HEIGHT; i++)
 	{
-		for (int j = 0; j < grid.gridHeight; j++)
+		for (int j = 0; j < Grid::MAX_GRID_WIDTH; j++)
 		{
 			if( grid.resourceCellArray[i][j] != NULL && // Check to see if cell Exists
 				window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[i][j]->key) )// If key for cell is pressed

@@ -20,7 +20,6 @@ void Player::Initialize(Game *game, std::string filename, sf::Font& font, float 
 void Player::Update(Game *game, float deltaTime)
 {
 	Entity::Update(game, deltaTime);
-
 }
 
 bool Player::CheckSquare( Resource* resourceCell )
