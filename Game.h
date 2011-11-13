@@ -30,12 +30,13 @@ public:
 	};
 
 	// Key times
+	int gameEra;
 	enum
 	{
-		FIRST_AGE = 5,
-		SECOND_AGE = 10,
-		THIRD_AGE = 15,
-		TIME_OVER = 20
+		FIRST_AGE = 0,
+		SECOND_AGE = 5,
+		THIRD_AGE = 10,
+		TIME_OVER = 15
 	};
 
 	sf::Clock resourceSpawnTimer;
@@ -60,6 +61,9 @@ public:
 	// Player point totals
 	sf::Font pointFont;
 
+	sf::String player1Points;
+	sf::String player2Points;
+
 	Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title);
 
 	void Initialize();
@@ -67,6 +71,8 @@ public:
 	void DisplayTitleScreen();
 
 	void DisplayInstructionScreen();
+
+	void DisplayGameOver();
 
 	void Run();
 

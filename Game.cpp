@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Entity.h"
+#include <sstream>
 
 
 Game::Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title)
@@ -34,9 +35,9 @@ void Game::Initialize()
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
 
-	gameTime.Reset();
-
 	gameState = TITLE_SCREEN;
+
+	gameEra = FIRST_AGE;
 }
 
 void Game::Run()
@@ -70,6 +71,7 @@ void Game::Run()
 					else if (gameState == INSTRUCTION_SCREEN)
 					{
 						gameState = GAME_PLAYING;
+						gameTime.Reset();
 					}
 				}
 
@@ -100,6 +102,7 @@ void Game::Run()
 		}
 		else if (gameState == GAME_OVER)
 		{
+			DisplayGameOver();
 		}
 
 		// Display window contents on screen
@@ -117,12 +120,48 @@ void Game::DisplayInstructionScreen()
 	window.Draw(instructionScreen);
 }
 
+void Game::DisplayGameOver()
+{
+	window.Draw(player1Points);
+	window.Draw(player2Points);
+}
+
 void Game::Update(float deltaTime)
 {
 	if (gameTime.GetElapsedTime() > TIME_OVER)
 	{
 		// Game over
 		gameState = GAME_OVER;
+
+		// Set display text for endgame
+		std::stringstream ss;
+		ss << "Player 1 total: ";
+		ss << player1.myPoints;
+		player1Points.SetText(ss.str());
+		player1Points.SetFont(pointFont);
+		player1Points.SetSize(80);
+		player1Points.SetPosition(10.0f, 0.0f);
+
+
+		std::stringstream ss2;
+		ss2 << "Player 2 total: ";
+		ss2 << player2.myPoints;
+		player2Points.SetText(ss2.str());
+		player2Points.SetFont(pointFont);
+		player2Points.SetSize(80);
+		player2Points.SetPosition(10.0f, 60.0f);
+	}
+	else if (gameTime.GetElapsedTime() > THIRD_AGE)
+	{
+		gameEra = THIRD_AGE;
+	}
+	else if (gameTime.GetElapsedTime() > SECOND_AGE)
+	{
+		gameEra = SECOND_AGE;
+	}
+	else if (gameTime.GetElapsedTime() > FIRST_AGE)
+	{
+		gameEra = FIRST_AGE;
 	}
 
 	UpdateInput(deltaTime);
