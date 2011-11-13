@@ -20,6 +20,7 @@ void Player::Initialize(Game *game, std::string filename, sf::Font& font, float 
 void Player::Update(Game *game, float deltaTime)
 {
 	Entity::Update(game, deltaTime);
+	UpdatePointDisplay();
 }
 
 bool Player::IsColliding( sf::Rect<float>& rect )
@@ -34,4 +35,11 @@ void Player::UpdatePointDisplay()
 	std::stringstream ss;
 	ss << myPoints;
 	pointDisplay.SetText(ss.str());
+}
+sf::Vector2i Player::getCellLocation(Grid& grid)
+{
+	float cellWidth = (float)(grid.viewportWidth) / (float)(Grid::MAX_GRID_WIDTH);
+	float cellHeight = (float)(grid.viewportHeight) / (float)(Grid::MAX_GRID_HEIGHT);
+		
+	return sf::Vector2i( static_cast<int>( GetCenter().y / cellHeight), static_cast<int>( GetCenter().x / cellWidth));
 }

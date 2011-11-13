@@ -2,6 +2,7 @@
 #define PLAYER
 
 #include "Entity.h"
+#include "Grid.h"
 #include "Resource.h"
 
 class Game;
@@ -17,6 +18,7 @@ public:
 	void Update(Game *game, float deltaTime);
 	void UpdatePointDisplay();
 	bool IsColliding(sf::Rect<float>& rect);
+	sf::Vector2i getCellLocation(Grid& grid);
 };
 
 #endif // PLAYER

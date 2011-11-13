@@ -16,6 +16,7 @@ public:
 	float Z_Velocity;
 	float Z_Pos;
 	sf::Vector2f ShotTarget;
+	sf::Vector2i ShotTargetCell;
 	bool Visible;
 
 	sf::String pointDisplay;
