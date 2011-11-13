@@ -69,6 +69,7 @@ public:
 
 	void Display();
 
+	void KeepPlayerInScreen(Player& player);
 
 	static std::string KeyToString(int keyCode);
 };

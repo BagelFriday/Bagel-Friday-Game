@@ -80,6 +80,30 @@ void Game::Run()
 	}
 }
 
+void Game::KeepPlayerInScreen(Player& player)
+{
+	sf::Vector2f myCenter = player.GetCenter();
+	sf::Vector2f myPosition = player.GetPosition();
+
+	if (myCenter.x <= 0)
+	{
+		player.SetX(-(player.GetRect().GetWidth() / 2.0f));
+	}
+	else if (myCenter.x > (screenWidth - 2))
+	{
+		player.SetX((screenWidth - 2) - (player.GetRect().GetWidth() / 2.0f));
+	}
+
+	if( myCenter.y <= 0 )
+	{
+		player.SetY(-(player.GetRect().GetHeight() / 2.f));
+	}
+	else if( myCenter.y > 658 )
+	{
+		player.SetY( 658 - (player.GetRect().GetHeight() / 2.f) );
+	}
+}
+
 void Game::Update(float deltaTime)
 {
 	if (gameTime.GetElapsedTime() > TIME_OVER)
@@ -89,6 +113,9 @@ void Game::Update(float deltaTime)
 	}
 
 	UpdateInput(deltaTime);
+
+	KeepPlayerInScreen(player1);
+	KeepPlayerInScreen(player2);
 
 	if(numActiveResources < Grid::MAX_GRID_WIDTH * Grid::MAX_GRID_HEIGHT && resourceSpawnTimer.GetElapsedTime() > 1.0f )
 	{
