@@ -24,6 +24,7 @@ public:
 	enum
 	{
 		TITLE_SCREEN,
+		INSTRUCTION_SCREEN,
 		GAME_PLAYING,
 		GAME_OVER
 	};
@@ -45,6 +46,8 @@ public:
 	Player player1;
 	Player player2;
 	Cannon cannon;
+	Entity titleScreen;
+	Entity instructionScreen;
 
 	Grid grid;
 	int numActiveResources;
@@ -60,6 +63,10 @@ public:
 	Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title);
 
 	void Initialize();
+
+	void DisplayTitleScreen();
+
+	void DisplayInstructionScreen();
 
 	void Run();
 

@@ -28,12 +28,15 @@ void Game::Initialize()
 
 	background.Initialize(this, "Art/background.png");
 
+	titleScreen.Initialize(this, "Art/title.png");
+	instructionScreen.Initialize(this, "Art/instructions.png");
+
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
 
 	gameTime.Reset();
 
-	gameState = GAME_PLAYING;
+	gameState = TITLE_SCREEN;
 }
 
 void Game::Run()
@@ -58,6 +61,17 @@ void Game::Run()
 				// Escape key : exit
 				if (Event.Key.Code == sf::Key::Escape)
 					window.Close();
+				if (Event.Key.Code == sf::Key::Return)
+				{
+					if (gameState == TITLE_SCREEN)
+					{
+						gameState = INSTRUCTION_SCREEN;
+					}
+					else if (gameState == INSTRUCTION_SCREEN)
+					{
+						gameState = GAME_PLAYING;
+					}
+				}
 
 				// F1 key : capture a screenshot
 				if (Event.Key.Code == sf::Key::F1)
@@ -71,9 +85,22 @@ void Game::Run()
 		// Clear the screen with red color
 		window.Clear(sf::Color(0, 0, 0));
 
-		Update(window.GetFrameTime());
-
-		Display();
+		if (gameState == TITLE_SCREEN)
+		{
+			DisplayTitleScreen();
+		}
+		else if (gameState == INSTRUCTION_SCREEN)
+		{
+			DisplayInstructionScreen();
+		}
+		else if (gameState == GAME_PLAYING)
+		{
+			Update(window.GetFrameTime());
+			Display();
+		}
+		else if (gameState == GAME_OVER)
+		{
+		}
 
 		// Display window contents on screen
 		window.Display();
@@ -102,6 +129,16 @@ void Game::KeepPlayerInScreen(Player& player)
 	{
 		player.SetY( 658 - (player.GetRect().GetHeight() / 2.f) );
 	}
+}
+
+void Game::DisplayTitleScreen()
+{
+	window.Draw(titleScreen);
+}
+
+void Game::DisplayInstructionScreen()
+{
+	window.Draw(instructionScreen);
 }
 
 void Game::Update(float deltaTime)
