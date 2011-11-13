@@ -16,6 +16,8 @@ screenHeight(_screenHeight)
 
 	resourceFont.LoadFromFile("arial.ttf", 50);
 
+	ageFont.LoadFromFile("arial.ttf", 30);
+
 	pointFont.LoadFromFile("arial.ttf", 80);
 }
 
@@ -25,6 +27,7 @@ void Game::Initialize()
 
 	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f);
 	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f);
+	player2.SetX(screenWidth - player2.GetRect().GetWidth());
 	cannon.Initialize( this );
 
 	background.Initialize(this, "Art/background.png");
@@ -34,6 +37,11 @@ void Game::Initialize()
 
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
+
+	ageDisplay.SetText("first age");
+	ageDisplay.SetFont(resourceFont);
+	ageDisplay.SetSize(30);
+	ageDisplay.SetPosition(0.0f, 660.0f);
 
 	gameState = TITLE_SCREEN;
 
@@ -179,14 +187,17 @@ void Game::Update(float deltaTime)
 	else if (gameTime.GetElapsedTime() > THIRD_AGE)
 	{
 		gameEra = THIRD_AGE;
+		ageDisplay.SetText("final age");
 	}
 	else if (gameTime.GetElapsedTime() > SECOND_AGE)
 	{
 		gameEra = SECOND_AGE;
+		ageDisplay.SetText("second age");
 	}
 	else if (gameTime.GetElapsedTime() > FIRST_AGE)
 	{
 		gameEra = FIRST_AGE;
+		ageDisplay.SetText("first age");
 	}
 
 	UpdateInput(deltaTime);
@@ -289,6 +300,7 @@ void Game::Display()
 	}
 	window.Draw(player1.pointDisplay);
 	window.Draw(player2.pointDisplay);
+	window.Draw(ageDisplay);
 }
 /*
 std::string Game::KeyToString(int keyCode)
