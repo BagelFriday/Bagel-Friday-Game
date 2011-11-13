@@ -32,7 +32,7 @@ public:
 	~Grid();
 
 	void SpawnResource(Game *game);
-	void RemoveResource(Resource* resourceCell);
+	void RemoveResource(int row, int col);
 
 	void Display(Game *game);
 };

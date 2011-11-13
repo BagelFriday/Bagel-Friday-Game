@@ -22,12 +22,11 @@ viewportHeight(660)
 
 Grid::~Grid()
 {
-	// Set all NULL
 	for (int i = 0; i < MAX_GRID_HEIGHT; i++)
 	{
 		for (int j = 0; j < MAX_GRID_WIDTH; j++)
 		{
-			if(resourceCellArray[i][j] != NULL )
+			if(resourceCellArray[i][j] )
 			{
 				delete resourceCellArray[i][j];
 			}
@@ -52,7 +51,7 @@ void Grid::SpawnResource(Game *game)
 	{
 		for (int j = 0; j < MAX_GRID_WIDTH; j++)
 		{
-			if( resourceCellArray[i][j] == NULL)
+			if( !resourceCellArray[i][j] )
 			{
 				if( randomResourcePosition == 0 )
 				{
@@ -111,11 +110,10 @@ void Grid::SpawnResource(Game *game)
 	}
 }
 
-void Grid::RemoveResource(Resource* resourceCell)
+void Grid::RemoveResource(int row, int col)
 {
-	delete resourceCell;
+	delete resourceCellArray[row][col];
 	numActiveResources--;
-
 }
 
 void Grid::Display(Game *game)
@@ -124,7 +122,7 @@ void Grid::Display(Game *game)
 	{
 		for (int j = 0; j < MAX_GRID_WIDTH; j++)
 		{
-			if( game->grid.resourceCellArray[i][j] != NULL )
+			if( resourceCellArray[i][j] )
 			{
 				game->window.Draw(*resourceCellArray[i][j]);
 				game->window.Draw(resourceCellArray[i][j]->displayText);

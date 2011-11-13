@@ -36,5 +36,5 @@ sf::Vector2f Entity::GetCenter()
 	y = GetPosition().y;
 	w = GetSubRect().GetWidth() * GetScale().x;
 	h = GetSubRect().GetHeight() * GetScale().y;
-	return sf::Vector2f( (x + w) / 2.0f, (y + h) / 2.0f );
+	return sf::Vector2f( x + (w / 2.0f), y + (h / 2.0f) );
 }
