@@ -24,7 +24,7 @@ void Cannon::FireShot( sf::Vector2f hit_pos, Game *game )
 	shot.ShotTarget = hit_pos;
 	shot.SetPosition( sprite.GetPosition() );
 	shot.Z_Pos = .01f;
-	shot.Z_Velocity = 0.6f;
+	shot.Z_Velocity = 300.f;
 	shot.Visible = true;
 	shot.SetCenter( sf::Vector2f( shot.GetRect().GetWidth() / 2.f, shot.GetRect().GetHeight() / 2.f ) );
 	Shots.push_back( shot );
@@ -38,8 +38,9 @@ void Cannon::UpdateShots( float deltaTime )
 	std::deque<Entity>::iterator i = Shots.begin();
 	for(; i != Shots.end(); ++i )
 	{
-		i->Z_Velocity += -0.3f * deltaTime;
-		i->Z_Pos += i->Z_Velocity;
+		//i->Z_Pos = i->Z_Pos + i->Z_Velocity * deltaTime - 9.8 * (deltaTime * deltaTime);
+		i->Z_Velocity += -200.f * deltaTime;
+		i->Z_Pos += i->Z_Velocity * deltaTime;
 
 		if( i->Z_Pos > 200.f )
 		{

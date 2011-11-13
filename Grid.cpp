@@ -75,6 +75,14 @@ void Grid::SpawnResource(Game *game)
 						resourceType = "gold";
 						pointValue = 3;
 						break;
+					case 3:
+						resourceType = "silicon";
+						pointValue = 4;
+						break;
+					case 4:
+						resourceType = "love";
+						pointValue = 5;
+						break;
 					}
 
 					// Key from random resource
@@ -82,6 +90,8 @@ void Grid::SpawnResource(Game *game)
 					if		(resourceType == "meat")		key = sf::Key::M;
 					else if (resourceType == "gold")		key = sf::Key::G;
 					else if (resourceType == "sticks")		key = sf::Key::S;
+					else if (resourceType == "silicon")		key = sf::Key::H;
+					else if (resourceType == "love")		key = sf::Key::L;
 					else									key = sf::Key::Z;
 
 					resourceCellArray[i][j]->SetImage(*(game->imagePool.loadWithPool("Art/" + resourceType + ".png")));

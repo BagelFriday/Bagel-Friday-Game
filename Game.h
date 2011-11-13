@@ -17,6 +17,26 @@ public:
 	int screenWidth;
 	int screenHeight;
 
+	// Total elapsed game time
+	sf::Clock gameTime;
+
+	int gameState;
+	enum
+	{
+		TITLE_SCREEN,
+		GAME_PLAYING,
+		GAME_OVER
+	};
+
+	// Key times
+	enum
+	{
+		FIRST_AGE = 5,
+		SECOND_AGE = 10,
+		THIRD_AGE = 15,
+		TIME_OVER = 20
+	};
+
 	sf::Clock resourceSpawnTimer;
 	sf::RenderWindow window;
 
@@ -29,7 +49,7 @@ public:
 	Grid grid;
 	int numActiveResources;
 
-	Entity gridBackground;
+	Entity background;
 
 	// Drawn on resources
 	sf::Font resourceFont;
