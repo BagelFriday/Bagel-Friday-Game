@@ -34,9 +34,9 @@ public:
 	enum
 	{
 		FIRST_AGE = 0,
-		SECOND_AGE = 5,
-		THIRD_AGE = 10,
-		TIME_OVER = 15
+		SECOND_AGE = 25,
+		THIRD_AGE = 45,
+		TIME_OVER = 60
 	};
 
 	sf::Clock resourceSpawnTimer;
