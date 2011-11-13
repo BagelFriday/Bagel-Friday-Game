@@ -196,6 +196,8 @@ void Grid::SpawnResource(Game *game)
 					resourceCellArray[i][j]->SetPosition(cellPosition);
 					resourceCellArray[i][j]->AlignText();
 
+					resourceCellArray[i][j]->StartFadeIn();
+
 					numActiveResources++;
 					return;
 				}
