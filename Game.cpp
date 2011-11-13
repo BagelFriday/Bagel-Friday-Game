@@ -107,6 +107,7 @@ void Game::Update(float deltaTime)
 				if( p1_collect || p2_collect )
 				{
 					grid.RemoveResource( grid.resourceCellArray[i][j] );
+					grid.resourceCellArray[i][j] = NULL;
 				}
 			}
 		}
