@@ -28,12 +28,14 @@ void Game::Initialize()
 
 	background.Initialize(this, "Art/background.png");
 
+	titleScreen.Initialize(this, "Art/title.png");
+
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
 
 	gameTime.Reset();
 
-	gameState = GAME_PLAYING;
+	gameState = TITLE_SCREEN;
 }
 
 void Game::Run()
@@ -71,13 +73,39 @@ void Game::Run()
 		// Clear the screen with red color
 		window.Clear(sf::Color(0, 0, 0));
 
-		Update(window.GetFrameTime());
-
-		Display();
+		if (gameState == TITLE_SCREEN)
+		{
+			UpdateTitleScreen();
+			DisplayTitleScreen();
+		}
+		else if (gameState == GAME_PLAYING)
+		{
+			Update(window.GetFrameTime());
+			Display();
+		}
+		else if (gameState == GAME_OVER)
+		{
+		}
 
 		// Display window contents on screen
 		window.Display();
 	}
+}
+
+void Game::UpdateTitleScreen()
+{
+	const sf::Input& input = window.GetInput();
+
+	// Press space to launch the game
+	if (input.IsKeyDown(sf::Key::Return))
+	{
+		gameState = GAME_PLAYING;
+	}
+}
+
+void Game::DisplayTitleScreen()
+{
+	window.Draw(titleScreen);
 }
 
 void Game::Update(float deltaTime)

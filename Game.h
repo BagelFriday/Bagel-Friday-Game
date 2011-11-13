@@ -45,6 +45,7 @@ public:
 	Player player1;
 	Player player2;
 	Cannon cannon;
+	Entity titleScreen;
 
 	Grid grid;
 	int numActiveResources;
@@ -60,6 +61,10 @@ public:
 	Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title);
 
 	void Initialize();
+
+	void UpdateTitleScreen();
+
+	void DisplayTitleScreen();
 
 	void Run();
 
