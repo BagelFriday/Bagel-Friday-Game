@@ -105,7 +105,7 @@ void Grid::SpawnResource(Game *game)
 								woodCharsIt = (woodCharsIt+1)%NUM_WOOD_VALUES;
 								woodCharsActive++;
 								pointValue = 2;
-								resourceType = "wood";
+								resourceType = "sticks";
 								break;
 							}	
 						case RESOURCE_STEEL:
