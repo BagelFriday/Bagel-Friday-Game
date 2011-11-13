@@ -8,18 +8,6 @@
 
 class Game;
 
-enum ResourceType
-{
-	RESOURCE_MEAT,
-	RESOURCE_WOOD,
-	RESOURCE_STEEL,
-	RESOURCE_GOLD,
-	RESOURCE_SILICON,
-	RESOURCE_LOVE,
-
-	RESOURCE_COUNT
-};
-
 class Grid
 {
 private:

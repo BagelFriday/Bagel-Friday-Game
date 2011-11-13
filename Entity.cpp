@@ -30,7 +30,7 @@ void Entity::UpdateFade(Game *game)
 	static float timeToFade = 4.0f;
 	float timeSpentFading = (game->gameTime.GetElapsedTime() - timeOfSpawn) / timeToFade;
 
-	transparency = 255 * timeSpentFading;
+	transparency = (int)(255 * timeSpentFading);
 
 	if (transparency < 0)
 	{

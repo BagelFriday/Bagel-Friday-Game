@@ -96,6 +96,7 @@ void Grid::SpawnResource(Game *game)
 								meatCharsActive++;
 								pointValue = 1;
 								resourceType = "meat";
+								resourceCellArray[i][j]->type = RESOURCE_MEAT;
 								break;
 							}				
 						case RESOURCE_WOOD:
@@ -106,6 +107,7 @@ void Grid::SpawnResource(Game *game)
 								woodCharsActive++;
 								pointValue = 2;
 								resourceType = "sticks";
+								resourceCellArray[i][j]->type = RESOURCE_WOOD;
 								break;
 							}	
 						case RESOURCE_STEEL:
@@ -116,6 +118,7 @@ void Grid::SpawnResource(Game *game)
 								steelCharsActive++;
 								pointValue = 3;
 								resourceType = "steel";
+								resourceCellArray[i][j]->type = RESOURCE_STEEL;
 								break;
 							}
 						case RESOURCE_GOLD:
@@ -126,6 +129,7 @@ void Grid::SpawnResource(Game *game)
 								goldCharsActive++;
 								pointValue = 4;
 								resourceType = "gold";
+								resourceCellArray[i][j]->type = RESOURCE_GOLD;
 								break;
 							}
 						case RESOURCE_SILICON:
@@ -135,6 +139,7 @@ void Grid::SpawnResource(Game *game)
 								siliconCharsActive++;
 								pointValue = 7;
 								resourceType = "silicon";
+								resourceCellArray[i][j]->type = RESOURCE_SILICON;
 								break;
 							}
 						case RESOURCE_LOVE:
@@ -149,6 +154,7 @@ void Grid::SpawnResource(Game *game)
 									key = meatChars[meatCharsIt];
 									meatCharsIt = (meatCharsIt+1)%NUM_MEAT_VALUES;
 									meatCharsActive++;
+									resourceCellArray[i][j]->type = RESOURCE_MEAT;
 									break;
 								}
 							case 1:
@@ -157,6 +163,7 @@ void Grid::SpawnResource(Game *game)
 									key = woodChars[woodCharsIt];
 									woodCharsIt = (woodCharsIt+1)%NUM_WOOD_VALUES;
 									woodCharsActive++;
+									resourceCellArray[i][j]->type = RESOURCE_WOOD;
 									break;
 								}
 							case 2:
@@ -165,6 +172,7 @@ void Grid::SpawnResource(Game *game)
 									key = goldChars[goldCharsIt];
 									goldCharsIt = (goldCharsIt+1)%NUM_GOLD_VALUES;
 									goldCharsActive++;
+									resourceCellArray[i][j]->type = RESOURCE_GOLD;
 									break;
 								}
 							default:
@@ -184,7 +192,6 @@ void Grid::SpawnResource(Game *game)
 					keyMap[static_cast<sf::Key::Code>(resourceCellArray[i][j]->key)] = sf::Vector2i(i, j);
 					
 					resourceCellArray[i][j]->SetImage(*(game->imagePool.loadWithPool("Art/" + resourceType + ".png")));
-					resourceCellArray[i][j]->type = resourceType;
 					resourceCellArray[i][j]->pointValue = pointValue;
 
 					// Position of cell that contains resource (cell is bigger than resource)
@@ -211,6 +218,30 @@ void Grid::SpawnResource(Game *game)
 
 void Grid::RemoveResource(int row, int col)
 {
+	switch( resourceCellArray[row][col]->type )
+	{
+	case RESOURCE_MEAT:
+		meatCharsActive--;
+		break;
+	case RESOURCE_WOOD:
+		woodCharsActive--;
+		break;
+	case RESOURCE_STEEL:
+		steelCharsActive--;
+		break;
+	case RESOURCE_GOLD:
+		goldCharsActive--;
+		break;
+	case RESOURCE_SILICON:
+		siliconCharsActive--;
+		break;
+	default:
+		assert(true);
+		break;
+	}
+
+	keyMap.erase( static_cast<sf::Key::Code>(resourceCellArray[row][col]->key) );
+
 	delete resourceCellArray[row][col];
 	numActiveResources--;
 }

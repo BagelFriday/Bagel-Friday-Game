@@ -4,12 +4,24 @@
 #include "Entity.h"
 #include <SFML/Graphics.hpp>
 
+enum ResourceType
+{
+	RESOURCE_MEAT,
+	RESOURCE_WOOD,
+	RESOURCE_STEEL,
+	RESOURCE_GOLD,
+	RESOURCE_SILICON,
+	RESOURCE_LOVE,
+
+	RESOURCE_COUNT
+};
+
 class Resource: public Entity
 {
 private:
 public:
 
-	std::string type;
+	ResourceType type;
 
 	char key;
 

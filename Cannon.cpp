@@ -69,6 +69,9 @@ void Cannon::UpdateShots( float deltaTime, Game *game )
 			if( p2Position.x == i->ShotTargetCell.x && p2Position.y == i->ShotTargetCell.y )
 				game->player2.myPoints -= 10;
 
+			game->grid.RemoveResource( i->ShotTargetCell.x, i->ShotTargetCell.y );
+			game->grid.resourceCellArray[i->ShotTargetCell.x][i->ShotTargetCell.y] = NULL;
+
 			Shots.pop_front();
 			i = Shots.begin();
 
