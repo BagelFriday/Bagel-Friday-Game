@@ -26,8 +26,7 @@ void Game::Initialize()
 	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f);
 	cannon.Initialize( this );
 
-	gridBackground.Initialize(this, "Art/grid-background.png");
-	gridBackground.SetPosition(grid.position);
+	background.Initialize(this, "Art/background.png");
 
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
@@ -66,7 +65,7 @@ void Game::Run()
 		}
 
 		// Clear the screen with red color
-		window.Clear(sf::Color(50, 0, 0));
+		window.Clear(sf::Color(0, 0, 0));
 
 		Update(window.GetFrameTime());
 
@@ -147,7 +146,7 @@ void Game::UpdateInput(float deltaTime)
 
 void Game::Display()
 {
-	window.Draw(gridBackground);
+	window.Draw(background);
 
 	// Display grid
 	grid.Display(this);
