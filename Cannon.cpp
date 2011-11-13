@@ -7,15 +7,11 @@ void Cannon::Initialize( Game *game )
 	sprite.SetPosition( sf::Vector2f( game->screenWidth / 2.f, game->screenHeight - 50.f ) );
 	sprite.SetRotation( 0.f );
 	sprite.SetCenter( sf::Vector2f( sprite.GetRect().GetWidth() / 2.f, sprite.GetRect().GetHeight() / 2.f ) );
-}
 
-//float Dot( sf::Vector2f v1, sf::Vector2f v2 )
-//{
-//	float v1_length = sqrtf((v1.x * v1.x) + (v1.y * v1.y));
-//	float v2_length = sqrtf((v2.x * v2.x) + (v2.y * v2.y));
-//
-//
-//}
+	cannonShot.LoadFromFile( "Sound/14616__man__canon2.aif" );
+	explosion.LoadFromFile( "Sound/35643__sandyrb__usat-bomb.wav" );
+
+}
 
 void Cannon::FireShot( sf::Vector2f hit_pos, Game *game )
 {
@@ -29,8 +25,12 @@ void Cannon::FireShot( sf::Vector2f hit_pos, Game *game )
 	shot.SetCenter( sf::Vector2f( shot.GetRect().GetWidth() / 2.f, shot.GetRect().GetHeight() / 2.f ) );
 	Shots.push_back( shot );
 
-	//Vector2f direction = hit_pos - sprite->GetPosition();
-	//sprite->SetRotation()
+	static sf::Sound sound;
+	sound.SetBuffer( cannonShot );
+	sound.SetLoop(false);
+	sound.Play();
+
+	cannonShots.push_back( sound );
 }
 
 void Cannon::UpdateShots( float deltaTime )
@@ -60,7 +60,40 @@ void Cannon::UpdateShots( float deltaTime )
 			Shots.pop_front();
 			i = Shots.begin();
 
+			static sf::Sound sound;
+			sound.SetBuffer( explosion );
+			sound.SetLoop(false);
+			sound.Play();
+
+			explosions.push_back( sound );
+
 			if(Shots.empty())
+				break;
+		}
+	}
+
+	std::deque<sf::Sound>::iterator j = cannonShots.begin();
+	for(; j != cannonShots.end(); ++j)
+	{
+		if( j->GetStatus() != sf::Sound::Playing )
+		{
+			cannonShots.pop_front();
+			j = cannonShots.begin();
+
+			if( cannonShots.empty() )
+				break;
+		}
+	}
+
+	std::deque<sf::Sound>::iterator k = explosions.begin();
+	for(; k != explosions.end(); ++k)
+	{
+		if( k->GetStatus() != sf::Sound::Playing )
+		{
+			explosions.pop_front();
+			k = explosions.begin();
+
+			if( explosions.empty() )
 				break;
 		}
 	}

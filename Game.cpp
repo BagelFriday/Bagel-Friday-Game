@@ -3,6 +3,7 @@
 #include <sstream>
 
 
+
 Game::Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title)
 :
 screenWidth(_screenWidth),
@@ -26,6 +27,9 @@ void Game::Initialize()
 	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f);
 	player2.Initialize(this, "Art/player2.png", pointFont, 80.0f);
 	cannon.Initialize( this );
+
+
+	collection.LoadFromFile( "Sound/75235__creek23__cha-ching.wav" );
 
 	background.Initialize(this, "Art/background.png");
 
