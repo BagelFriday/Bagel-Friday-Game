@@ -125,7 +125,7 @@ void Game::Display()
 	window.Draw(player2);
 	window.Draw(cannon.sprite);
 	
-	std::list<Entity>::iterator i = cannon.Shots.begin();
+	std::deque<Entity>::iterator i = cannon.Shots.begin();
 	for(; i != cannon.Shots.end(); ++i)
 	{
 		if( i->Visible )

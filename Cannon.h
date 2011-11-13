@@ -1,7 +1,7 @@
 #ifndef CANNON_H
 #define CANNON_H
 
-#include <list>
+#include <deque>
 #include "Entity.h"
 #include <SFML/Graphics.hpp>
 
@@ -10,7 +10,7 @@ class Game;
 class Cannon
 {
 public:
-	std::list<Entity> Shots;
+	std::deque<Entity> Shots;
 	Entity sprite;
 
 	Cannon(){};

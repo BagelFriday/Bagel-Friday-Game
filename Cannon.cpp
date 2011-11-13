@@ -24,7 +24,7 @@ void Cannon::FireShot( sf::Vector2f hit_pos, Game *game )
 	shot.ShotTarget = hit_pos;
 	shot.SetPosition( sprite.GetPosition() );
 	shot.Z_Pos = .01f;
-	shot.Z_Velocity = 100.f;
+	shot.Z_Velocity = 10.f;
 	shot.Visible = true;
 	Shots.push_back( shot );
 
@@ -34,7 +34,7 @@ void Cannon::FireShot( sf::Vector2f hit_pos, Game *game )
 
 void Cannon::UpdateShots( float deltaTime )
 {
-	std::list<Entity>::iterator i = Shots.begin();
+	std::deque<Entity>::iterator i = Shots.begin();
 	for(; i != Shots.end(); ++i )
 	{
 		i->Z_Velocity += -9.8f * deltaTime;
@@ -57,6 +57,10 @@ void Cannon::UpdateShots( float deltaTime )
 			// TODO hurt player and destroy resource
 
 			Shots.pop_front();
+			i = Shots.begin();
+
+			if(Shots.empty())
+				break;
 		}
 	}
 }
