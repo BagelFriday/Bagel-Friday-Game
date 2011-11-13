@@ -20,7 +20,7 @@ screenHeight(_screenHeight)
 
 void Game::Initialize()
 {
-	grid.position = sf::Vector2f((screenWidth / 2.0f) - (grid.viewportWidth / 2.0f), (screenHeight / 2.0f) - (grid.viewportHeight / 2.0f));
+	grid.position = sf::Vector2f(0.0f, 0.0f);
 
 	const float FONT_INSET = 100.0f;
 	player1.Initialize(this, "Art/player1.png", pointFont, 80.0f);
@@ -30,7 +30,6 @@ void Game::Initialize()
 	gridBackground.Initialize(this, "Art/grid-background.png");
 	gridBackground.SetPosition(grid.position);
 
-	grid.SetSize(4, 4);
 	grid.Populate(this);
 }
 

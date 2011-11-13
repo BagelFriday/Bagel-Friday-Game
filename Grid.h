@@ -13,7 +13,7 @@ public:
 	sf::Vector2f position;
 
 	// Attributes
-	static const int MAX_GRID_WIDTH = 5;
+	static const int MAX_GRID_WIDTH = 8;
 	static const int MAX_GRID_HEIGHT = 5;
 	// <= the max values
 	// rows and columns
@@ -24,15 +24,13 @@ public:
 	int viewportWidth;
 	int viewportHeight;
 
-	Resource* grid[MAX_GRID_WIDTH][MAX_GRID_HEIGHT];
+	Resource* grid[MAX_GRID_HEIGHT][MAX_GRID_WIDTH];
 
 	Grid();
 
 	void Populate(Game *game);
 
 	void Display(Game *game);
-
-	void SetSize(int rows, int columns);
 };
 
 #endif // GRID

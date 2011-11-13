@@ -5,7 +5,7 @@
 
 Grid::Grid()
 :
-viewportWidth(660),
+viewportWidth(1024),
 viewportHeight(660)
 {
 	// Set all NULL
@@ -18,23 +18,11 @@ viewportHeight(660)
 	}
 }
 
-void Grid::SetSize(int rows, int columns)
-{
-	if (rows <= MAX_GRID_HEIGHT)
-	{
-		gridHeight = rows;
-	}
-	if (columns <= MAX_GRID_WIDTH)
-	{
-		gridWidth = columns;
-	}
-}
-
 void Grid::Populate(Game *game)
 {
-	for (int i = 0; i < gridWidth; i++)
+	for (int i = 0; i < MAX_GRID_HEIGHT; i++)
 	{
-		for (int j = 0; j < gridHeight; j++)
+		for (int j = 0; j < MAX_GRID_WIDTH; j++)
 		{
 			if (grid[i][j] != NULL)
 			{
@@ -80,10 +68,11 @@ void Grid::Populate(Game *game)
 			grid[i][j]->pointValue = pointValue;
 
 			// Position of cell that contains resource (cell is bigger than resource)
-			float cellWidth = (float)(viewportWidth) / (float)(gridWidth);
-			float cellHeight = (float)(viewportHeight) / (float)(gridHeight);
-			sf::Vector2f cellPosition(position.x + ((float)i * cellWidth), position.y + ((float)j * cellHeight));
+			float cellWidth = (float)(viewportWidth) / (float)(MAX_GRID_WIDTH);
+			float cellHeight = (float)(viewportHeight) / (float)(MAX_GRID_HEIGHT);
+			sf::Vector2f cellPosition(position.x + ((float)j * cellWidth), position.y + ((float)i * cellHeight));
 			grid[i][j]->SetPosition(sf::Vector2f(cellPosition.x + (cellWidth / 2.0f) - (grid[i][j]->GetImage()->GetWidth() / 2.0f), cellPosition.y + (cellHeight / 2.0f) - (grid[i][j]->GetImage()->GetHeight() / 2.0f)));
+			grid[i][j]->SetPosition(cellPosition);
 			grid[i][j]->AlignText();
 		}
 	}
@@ -91,9 +80,9 @@ void Grid::Populate(Game *game)
 
 void Grid::Display(Game *game)
 {
-	for (int i = 0; i < gridWidth; i++)
+	for (int i = 0; i < MAX_GRID_HEIGHT; i++)
 	{
-		for (int j = 0; j < gridHeight; j++)
+		for (int j = 0; j < MAX_GRID_WIDTH; j++)
 		{
 			game->window.Draw(*grid[i][j]);
 			game->window.Draw(grid[i][j]->displayText);

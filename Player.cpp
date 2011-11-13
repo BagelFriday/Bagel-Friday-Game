@@ -22,9 +22,9 @@ void Player::Update(Game *game, float deltaTime)
 	Entity::Update(game, deltaTime);
 
 	// Are we over a tile?
-	for (int i = 0; i < game->grid.gridWidth; i++)
+	for (int i = 0; i < Grid::MAX_GRID_HEIGHT; i++)
 	{
-		for (int j = 0; j < game->grid.gridHeight; j++)
+		for (int j = 0; j < Grid::MAX_GRID_WIDTH; j++)
 		{
 			if (game->grid.grid[i][j]->isAlive		// This tile is active
 				&& game->IsColliding(GetRect(), game->grid.grid[i][j]->GetRect())	// We're touching it
