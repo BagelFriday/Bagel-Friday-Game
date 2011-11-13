@@ -51,7 +51,7 @@ void Game::Run()
 			if (Event.Type == sf::Event::KeyPressed)
 			{
 				if(Event.Key.Code == sf::Key::Space)
-					cannon.FireShot( sf::Vector2f(100, 100), this );
+					cannon.FireShot( sf::Vector2f(rand()%1024, rand()%768), this );
 				// Escape key : exit
 				if (Event.Key.Code == sf::Key::Escape)
 					window.Close();
