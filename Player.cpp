@@ -36,3 +36,10 @@ void Player::UpdatePointDisplay()
 	ss << myPoints;
 	pointDisplay.SetText(ss.str());
 }
+sf::Vector2i Player::getCellLocation(Grid& grid)
+{
+	float cellWidth = (float)(grid.viewportWidth) / (float)(Grid::MAX_GRID_WIDTH);
+	float cellHeight = (float)(grid.viewportHeight) / (float)(Grid::MAX_GRID_HEIGHT);
+		
+	return sf::Vector2i( static_cast<int>( GetCenter().y / cellHeight), static_cast<int>( GetCenter().x / cellWidth));
+}

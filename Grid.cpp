@@ -131,8 +131,7 @@ void Grid::SpawnResource(Game *game)
 						case RESOURCE_SILICON:
 							if( siliconCharsActive < NUM_SILICON_VALUES )
 							{
-								key = siliconChars[siliconCharsIt];
-								siliconCharsIt = (siliconCharsIt+1)%NUM_SILICON_VALUES;
+								key = '_';
 								siliconCharsActive++;
 								pointValue = 7;
 								resourceType = "silicon";
@@ -175,14 +174,14 @@ void Grid::SpawnResource(Game *game)
 						}
 					}
 
-					
 
 					resourceCellArray[i][j]->key = key;
-					keyMap[static_cast<sf::Key::Code>(key)] = sf::Vector2i(i, j);
 					resourceCellArray[i][j]->SetTextFromKey(game->resourceFont);
 
 					if( key >= 65 && key <= 90 )
 						resourceCellArray[i][j]->key += 32;
+
+					keyMap[static_cast<sf::Key::Code>(resourceCellArray[i][j]->key)] = sf::Vector2i(i, j);
 					
 					resourceCellArray[i][j]->SetImage(*(game->imagePool.loadWithPool("Art/" + resourceType + ".png")));
 					resourceCellArray[i][j]->type = resourceType;

@@ -16,8 +16,8 @@ public:
 	Cannon(){};
 
 	void Initialize( Game *game );
-	void FireShot( sf::Vector2f hit_pos, Game *game );
-	void UpdateShots( float deltaTime );
+	void FireShot( sf::Vector2i hit_pos, Game *game );
+	void UpdateShots( float deltaTime, Game* game );
 };
 
 #endif

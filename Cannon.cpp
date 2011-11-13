@@ -1,5 +1,6 @@
 #include "Cannon.h"
 #include "Game.h"
+#include "Player.h"
 
 void Cannon::Initialize( Game *game )
 {
@@ -17,11 +18,16 @@ void Cannon::Initialize( Game *game )
 //
 //}
 
-void Cannon::FireShot( sf::Vector2f hit_pos, Game *game )
+void Cannon::FireShot( sf::Vector2i hit_pos, Game *game )
 {
 	Entity shot;
+	float cellWidth = (float)(game->grid.viewportWidth) / (float)(Grid::MAX_GRID_WIDTH);
+	float cellHeight = (float)(game->grid.viewportHeight) / (float)(Grid::MAX_GRID_HEIGHT);
+	
+	shot.ShotTarget = sf::Vector2f((float)hit_pos.y * cellWidth + cellWidth / 2.0f, (float)hit_pos.x * cellHeight + cellHeight / 2.0f );
+	
 	shot.Initialize( game, "Art/shot.png" );
-	shot.ShotTarget = hit_pos;
+	shot.ShotTargetCell = sf::Vector2i( hit_pos.x, hit_pos.y);
 	shot.SetPosition( sprite.GetPosition().x, sprite.GetPosition().y - 20 );
 	shot.Z_Pos = .01f;
 	shot.Z_Velocity = 300.f;
@@ -33,7 +39,7 @@ void Cannon::FireShot( sf::Vector2f hit_pos, Game *game )
 	//sprite->SetRotation()
 }
 
-void Cannon::UpdateShots( float deltaTime )
+void Cannon::UpdateShots( float deltaTime, Game *game )
 {
 	std::deque<Entity>::iterator i = Shots.begin();
 	for(; i != Shots.end(); ++i )
@@ -55,7 +61,13 @@ void Cannon::UpdateShots( float deltaTime )
 
 		if( i->Z_Pos <= 0.f )
 		{
-			// TODO hurt player and destroy resource
+			sf::Vector2i p1Position = game->player1.getCellLocation(game->grid);
+			sf::Vector2i p2Position = game->player2.getCellLocation(game->grid);
+
+			if( p1Position.x == i->ShotTargetCell.x && p1Position.y == i->ShotTargetCell.y )
+				game->player1.myPoints -= 10;
+			if( p2Position.x == i->ShotTargetCell.x && p2Position.y == i->ShotTargetCell.y )
+				game->player2.myPoints -= 10;
 
 			Shots.pop_front();
 			i = Shots.begin();
