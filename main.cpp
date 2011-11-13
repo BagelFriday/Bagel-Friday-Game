@@ -4,7 +4,7 @@
 
 int main()
 {
-	Game theGame(1024, 768, 32, sf::Style::Close, "TeamBagelFriday");
+	Game theGame(1024, 768, 32, sf::Style::Close, "A History of Humanity: 0-2011");
 
 	theGame.Run();
 
