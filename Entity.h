@@ -9,6 +9,10 @@ class Entity : public sf::Sprite
 {
 private:
 public:
+	float timeOfSpawn;
+
+	int transparency;
+
 	sf::Vector2f speed;
 
 	int myPoints;
@@ -22,6 +26,10 @@ public:
 	sf::String pointDisplay;
 
 	Entity();
+
+	void UpdateFade(Game *game);
+
+	void StartFadeIn();
 
 	virtual void Initialize(Game *game, std::string filename);
 

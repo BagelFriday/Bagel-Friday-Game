@@ -259,6 +259,17 @@ void Game::Update(float deltaTime)
 	static const float TEXT_INSET = 10.0f;
 	player1.pointDisplay.SetPosition(sf::Vector2f(0.0f + TEXT_INSET, screenHeight - player1.pointDisplay.GetRect().GetHeight() - TEXT_INSET));
 	player2.pointDisplay.SetPosition(sf::Vector2f(screenWidth - player1.pointDisplay.GetRect().GetWidth() - TEXT_INSET, screenHeight - player1.pointDisplay.GetRect().GetHeight() - TEXT_INSET));
+
+	for (int i = 0; i < Grid::MAX_GRID_HEIGHT; i++)
+	{
+		for (int j = 0; j < Grid::MAX_GRID_WIDTH; j++)
+		{
+			if (grid.resourceCellArray[i][j])
+			{
+				grid.resourceCellArray[i][j]->UpdateFade(this);
+			}
+		}
+	}
 }
 
 void Game::UpdateInput(float deltaTime)
