@@ -58,11 +58,15 @@ public:
 	// Drawn on resources
 	sf::Font resourceFont;
 
+	sf::Font ageFont;
+
 	// Player point totals
 	sf::Font pointFont;
 
 	sf::String player1Points;
 	sf::String player2Points;
+
+	sf::String ageDisplay;
 
 	Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title);
 
