@@ -24,6 +24,7 @@ public:
 	enum
 	{
 		TITLE_SCREEN,
+		INSTRUCTION_SCREEN,
 		GAME_PLAYING,
 		GAME_OVER
 	};
@@ -46,6 +47,7 @@ public:
 	Player player2;
 	Cannon cannon;
 	Entity titleScreen;
+	Entity instructionScreen;
 
 	Grid grid;
 	int numActiveResources;
@@ -62,9 +64,9 @@ public:
 
 	void Initialize();
 
-	void UpdateTitleScreen();
-
 	void DisplayTitleScreen();
+
+	void DisplayInstructionScreen();
 
 	void Run();
 

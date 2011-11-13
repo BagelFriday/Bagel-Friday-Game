@@ -29,6 +29,7 @@ void Game::Initialize()
 	background.Initialize(this, "Art/background.png");
 
 	titleScreen.Initialize(this, "Art/title.png");
+	instructionScreen.Initialize(this, "Art/instructions.png");
 
 	grid.SpawnResource(this);
 	resourceSpawnTimer.Reset();
@@ -60,6 +61,17 @@ void Game::Run()
 				// Escape key : exit
 				if (Event.Key.Code == sf::Key::Escape)
 					window.Close();
+				if (Event.Key.Code == sf::Key::Return)
+				{
+					if (gameState == TITLE_SCREEN)
+					{
+						gameState = INSTRUCTION_SCREEN;
+					}
+					else if (gameState == INSTRUCTION_SCREEN)
+					{
+						gameState = GAME_PLAYING;
+					}
+				}
 
 				// F1 key : capture a screenshot
 				if (Event.Key.Code == sf::Key::F1)
@@ -75,8 +87,11 @@ void Game::Run()
 
 		if (gameState == TITLE_SCREEN)
 		{
-			UpdateTitleScreen();
 			DisplayTitleScreen();
+		}
+		else if (gameState == INSTRUCTION_SCREEN)
+		{
+			DisplayInstructionScreen();
 		}
 		else if (gameState == GAME_PLAYING)
 		{
@@ -92,20 +107,14 @@ void Game::Run()
 	}
 }
 
-void Game::UpdateTitleScreen()
-{
-	const sf::Input& input = window.GetInput();
-
-	// Press space to launch the game
-	if (input.IsKeyDown(sf::Key::Return))
-	{
-		gameState = GAME_PLAYING;
-	}
-}
-
 void Game::DisplayTitleScreen()
 {
 	window.Draw(titleScreen);
+}
+
+void Game::DisplayInstructionScreen()
+{
+	window.Draw(instructionScreen);
 }
 
 void Game::Update(float deltaTime)
