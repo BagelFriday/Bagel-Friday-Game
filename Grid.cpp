@@ -176,6 +176,8 @@ void Grid::SpawnResource(Game *game)
 									break;
 								}
 							default:
+								if( numActiveResources > 35 )
+									return;
 								randomResourceKind = 0;
 							}
 
