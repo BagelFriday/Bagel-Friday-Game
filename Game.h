@@ -74,6 +74,8 @@ public:
 
 	Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title);
 
+	void SetVideoMode(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title);
+
 	void Initialize();
 
 	void DisplayTitleScreen();

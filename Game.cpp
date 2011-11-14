@@ -9,9 +9,7 @@ Game::Game(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std
 screenWidth(_screenWidth),
 screenHeight(_screenHeight)
 {
-	sf::VideoMode vmode = sf::VideoMode(screenWidth, screenHeight, bpp);
-
-	window.Create(vmode, title, mode);
+	SetVideoMode(_screenWidth, _screenHeight, bpp, mode, title);
 
 	sf::Randomizer::SetSeed(static_cast<unsigned int>(time(NULL)));
 
@@ -20,6 +18,13 @@ screenHeight(_screenHeight)
 	ageFont.LoadFromFile("arial.ttf", 30);
 
 	pointFont.LoadFromFile("arial.ttf", 80);
+}
+
+void Game::SetVideoMode(int _screenWidth, int _screenHeight, int bpp, unsigned long mode, std::string title)
+{
+	sf::VideoMode vmode = sf::VideoMode(screenWidth, screenHeight, bpp);
+
+	window.Create(vmode, title, mode);
 }
 
 void Game::Initialize()
@@ -91,6 +96,17 @@ void Game::Run()
 						gameState = GAME_PLAYING;
 						gameTime.Reset();
 					}
+				}
+
+				if (Event.Key.Code == sf::Key::F11)
+				{
+					// Switch to windowed mode
+					SetVideoMode(screenWidth, screenHeight, 32, sf::Style::Close, "A History of Humanity: 0-2011");
+				}
+				else if (Event.Key.Code == sf::Key::F12)
+				{
+					// Fullscreen
+					SetVideoMode(screenWidth, screenHeight, 32, sf::Style::Fullscreen, "A History of Humanity: 0-2011");
 				}
 
 				// F1 key : capture a screenshot
