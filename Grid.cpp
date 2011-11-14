@@ -176,6 +176,8 @@ void Grid::SpawnResource(Game *game)
 									break;
 								}
 							default:
+								if( numActiveResources > 35 )
+									return;
 								randomResourceKind = 0;
 							}
 
@@ -199,7 +201,7 @@ void Grid::SpawnResource(Game *game)
 					float cellHeight = (float)(viewportHeight) / (float)(MAX_GRID_HEIGHT);
 					sf::Vector2f cellPosition(position.x + ((float)j * cellWidth), position.y + ((float)i * cellHeight));
 					resourceCellArray[i][j]->SetPosition(sf::Vector2f(cellPosition.x + (cellWidth / 2.0f) - (resourceCellArray[i][j]->GetImage()->GetWidth() / 2.0f), cellPosition.y + (cellHeight / 2.0f) - (resourceCellArray[i][j]->GetImage()->GetHeight() / 2.0f)));
-					resourceCellArray[i][j]->SetPosition(cellPosition);
+					//resourceCellArray[i][j]->SetPosition(cellPosition);
 					resourceCellArray[i][j]->AlignText();
 
 					resourceCellArray[i][j]->StartFadeIn();

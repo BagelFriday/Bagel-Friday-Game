@@ -26,7 +26,7 @@ void Cannon::FireShot( sf::Vector2i hit_pos, Game *game )
 	shot.ShotTargetCell = sf::Vector2i( hit_pos.x, hit_pos.y);
 	shot.SetPosition( sprite.GetPosition().x, sprite.GetPosition().y - 20 );
 	shot.Z_Pos = .01f;
-	shot.Z_Velocity = 300.f;
+	shot.Z_Velocity = 350.f;
 	shot.Visible = true;
 	shot.SetCenter( sf::Vector2f( shot.GetRect().GetWidth() / 2.f, shot.GetRect().GetHeight() / 2.f ) );
 	Shots.push_back( shot );
@@ -44,15 +44,15 @@ void Cannon::UpdateShots( float deltaTime, Game *game )
 	std::deque<Entity>::iterator i = Shots.begin();
 	for(; i != Shots.end(); ++i )
 	{
-		i->Z_Velocity += -200.f * deltaTime;
+		i->Z_Velocity += -400.f * deltaTime;
 		i->Z_Pos += i->Z_Velocity * deltaTime;
 
-		if( i->Z_Pos > 200.f )
+		if( i->Z_Pos > 150.f )
 		{
 			i->SetPosition( i->ShotTarget );
 			i->Visible = false;
 		}
-		else if( i->Z_Pos < 200.f )
+		else if( i->Z_Pos < 150.f )
 		{
 			i->Visible = true;
 		}
@@ -72,8 +72,20 @@ void Cannon::UpdateShots( float deltaTime, Game *game )
 			game->grid.RemoveResource( i->ShotTargetCell.x, i->ShotTargetCell.y );
 			game->grid.resourceCellArray[i->ShotTargetCell.x][i->ShotTargetCell.y] = NULL;
 
+			Entity boom;
+
+			boom.Initialize(game, "Art/boom.png");
+			boom.Z_Pos = 1.0f;
+			boom.Visible = true;
+			boom.SetScale( sf::Vector2f( boom.Z_Pos, boom.Z_Pos ) );
+			boom.SetPosition( i->GetPosition() );
+			boom.SetCenter( sf::Vector2f( boom.GetRect().GetWidth() / 2.f, boom.GetRect().GetHeight() / 2.f ) );
+			ExplosionSprites.push_back(boom);
+
 			Shots.pop_front();
 			i = Shots.begin();
+
+
 
 			static sf::Sound sound;
 			sound.SetBuffer( explosion );
@@ -85,6 +97,25 @@ void Cannon::UpdateShots( float deltaTime, Game *game )
 			if(Shots.empty())
 				break;
 		}
+	}
+
+	std::deque<Entity>::iterator m = ExplosionSprites.begin();
+	for(; m != ExplosionSprites.end(); ++m)
+	{
+		if( m->Z_Pos > 20.f )
+		{
+			ExplosionSprites.pop_front();
+			m = ExplosionSprites.begin();
+
+			if( ExplosionSprites.empty() )
+				break;
+		}
+		else
+		{
+			m->Z_Pos += 30.0f * deltaTime;
+			m->SetScale( sf::Vector2f( m->Z_Pos, m->Z_Pos ) );
+		}
+
 	}
 
 	std::deque<sf::Sound>::iterator j = cannonShots.begin();
