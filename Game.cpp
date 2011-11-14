@@ -70,9 +70,15 @@ void Game::Run()
 			// A key has been pressed
 			if (Event.Type == sf::Event::KeyPressed)
 			{
-				if( grid.keyMap.find(Event.Key.Code) != grid.keyMap.end() )
+				sf::Key::Code key = Event.Key.Code;
+
+				if( Event.Key.Code == sf::Key::Space )
 				{
-					sf::Vector2i target(grid.keyMap[Event.Key.Code].x, grid.keyMap[Event.Key.Code].y);
+					key = (sf::Key::Code)'_';
+				}
+				if( grid.keyMap.find(key) != grid.keyMap.end() )
+				{
+					sf::Vector2i target(grid.keyMap[key].x, grid.keyMap[key].y);
 
 					cannon.FireShot( target, this );
 
@@ -227,14 +233,16 @@ void Game::Update(float deltaTime)
 	bool p2_collect = false;
 
 	if( grid.resourceCellArray[playerCell1.x][playerCell1.y] && // Check to see if cell Exists
-		window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[playerCell1.x][playerCell1.y]->key) )// If key for cell is pressed
+		( window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[playerCell1.x][playerCell1.y]->key) ||
+		( grid.resourceCellArray[playerCell1.x][playerCell1.y]->key == '_' && window.GetInput().IsKeyDown( sf::Key::Space ) ) ) )// If key for cell is pressed
 	{
 		p1_collect = true;
 
 		player1.myPoints += grid.resourceCellArray[playerCell1.x][playerCell1.y]->pointValue;
 	}
 	if( grid.resourceCellArray[playerCell2.x][playerCell2.y] && // Check to see if cell Exists
-		window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[playerCell2.x][playerCell2.y]->key) )// If key for cell is pressed
+		( window.GetInput().IsKeyDown((sf::Key::Code)grid.resourceCellArray[playerCell2.x][playerCell2.y]->key) ||
+		( grid.resourceCellArray[playerCell2.x][playerCell2.y]->key == '_' && window.GetInput().IsKeyDown( sf::Key::Space ) ) ) )// If key for cell is pressed
 	{
 		p2_collect = true;
 
@@ -311,6 +319,14 @@ void Game::Display()
 		if( i->Visible )
 		{
 			window.Draw(*i);
+		}
+	}
+	std::deque<Entity>::iterator j = cannon.ExplosionSprites.begin();
+	for(; j != cannon.ExplosionSprites.end(); ++j)
+	{
+		if( j->Visible )
+		{
+			window.Draw(*j);
 		}
 	}
 	window.Draw(player1.pointDisplay);

@@ -12,6 +12,7 @@ class Cannon
 {
 public:
 	std::deque<Entity> Shots;
+	std::deque<Entity> ExplosionSprites;
 	Entity sprite;
 
 	sf::SoundBuffer cannonShot;
